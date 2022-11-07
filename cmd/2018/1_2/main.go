@@ -2,23 +2,22 @@ package main
 
 import (
 	"bufio"
+	"embed"
 	"fmt"
-	"os"
 	"strconv"
+
+	"github.com/aivarasbaranauskas/aoc/internal/a"
 )
 
-var alreadyEncautered map[int]bool
+//go:embed input.txt
+var inputData embed.FS
 
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
-}
+var alreadyEncautered map[int]bool
 
 func parseNum(line []byte) int {
 	numStr := string(line[1:])
 	num, err := strconv.Atoi(numStr)
-	check(err)
+	a.CheckErr(err)
 
 	return num
 }
@@ -26,8 +25,8 @@ func parseNum(line []byte) int {
 func main() {
 	alreadyEncautered = make(map[int]bool)
 
-	f, err := os.Open("input.txt")
-	check(err)
+	f, err := inputData.Open("input.txt")
+	a.CheckErr(err)
 	scanner := bufio.NewScanner(f)
 
 	freq := 0
@@ -55,8 +54,8 @@ func main() {
 		}
 
 		// Reset file
-		f, err = os.Open("input.txt")
-		check(err)
+		f, err = inputData.Open("input.txt")
+		a.CheckErr(err)
 		scanner = bufio.NewScanner(f)
 	}
 }

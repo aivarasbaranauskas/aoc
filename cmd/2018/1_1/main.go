@@ -2,28 +2,27 @@ package main
 
 import (
 	"bufio"
+	"embed"
 	"fmt"
-	"os"
 	"strconv"
+
+	"github.com/aivarasbaranauskas/aoc/internal/a"
 )
 
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
-}
+//go:embed input.txt
+var inputData embed.FS
 
 func parseNum(line []byte) int {
 	numStr := string(line[1:])
 	num, err := strconv.Atoi(numStr)
-	check(err)
+	a.CheckErr(err)
 
 	return num
 }
 
 func main() {
-	f, err := os.Open("input.txt")
-	check(err)
+	f, err := inputData.Open("input.txt")
+	a.CheckErr(err)
 	scanner := bufio.NewScanner(f)
 
 	freq := 0

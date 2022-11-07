@@ -1,10 +1,13 @@
 package main
 
 import (
+	"embed"
 	"fmt"
-	"io/ioutil"
 	"strings"
 )
+
+//go:embed input.txt
+var inputData embed.FS
 
 func stringDiffer(str1 string, str2 string) (int, string) {
 	diffCounter := 0
@@ -20,7 +23,7 @@ func stringDiffer(str1 string, str2 string) (int, string) {
 }
 
 func main() {
-	file, _ := ioutil.ReadFile("input.txt")
+	file, _ := inputData.ReadFile("input.txt")
 	answer2 := 0
 	answer3 := 0
 	// Solution to first part

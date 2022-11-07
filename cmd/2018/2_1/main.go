@@ -2,19 +2,18 @@ package main
 
 import (
 	"bufio"
+	"embed"
 	"fmt"
-	"os"
+
+	"github.com/aivarasbaranauskas/aoc/internal/a"
 )
 
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
-}
+//go:embed input.txt
+var inputData embed.FS
 
 func readInput(file string) [][]byte {
-	f, err := os.Open(file)
-	check(err)
+	f, err := inputData.Open(file)
+	a.CheckErr(err)
 	scanner := bufio.NewScanner(f)
 
 	res := []([]byte){}
