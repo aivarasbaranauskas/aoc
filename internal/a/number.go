@@ -23,3 +23,10 @@ func Min[T Numeric](numbers ...T) (min T) {
 	}
 	return
 }
+
+func Sum[T Numeric](numbers ...T) (sum T) {
+	for i := range numbers {
+		sum += numbers[i]
+	}
+	return
+}
