@@ -19,3 +19,22 @@ func Reduce[T any](in []T, f func(T, T) T) (result T) {
 	}
 	return
 }
+
+func Intersect[T comparable](a ...[]T) (intersection []T) {
+	switch len(a) {
+	case 1:
+		intersection = a[0]
+	case 2:
+		for _, a1 := range a[0] {
+			for _, a2 := range a[1] {
+				if a1 == a2 {
+					intersection = append(intersection, a1)
+				}
+			}
+		}
+	default:
+		intersection = Intersect(a[0], Intersect(a[1:]...))
+	}
+
+	return
+}
