@@ -20,6 +20,18 @@ func Reduce[T any](in []T, f func(T, T) T) (result T) {
 	return
 }
 
+func ReduceInit[Tin, Tout any](in []Tin, initial Tout, f func(Tout, Tin) Tout) (result Tout) {
+	l := len(in)
+	if l == 0 {
+		return
+	}
+	result = initial
+	for i := 0; i < l; i++ {
+		result = f(result, in[i])
+	}
+	return
+}
+
 func Intersect[T comparable](a ...[]T) (intersection []T) {
 	switch len(a) {
 	case 1:
