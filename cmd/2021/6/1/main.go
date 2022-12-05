@@ -3,7 +3,7 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_a"
+	"github.com/aivarasbaranauskas/aoc/internal/_num"
 	"strconv"
 	"strings"
 )
@@ -38,5 +38,5 @@ func main() {
 		copy(fishes[:], tmp[:])
 	}
 
-	fmt.Println(_a.Sum(fishes[:]...))
+	fmt.Println(_num.Sum(fishes[:]...))
 }

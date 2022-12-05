@@ -1,4 +1,4 @@
-package _a
+package _slice
 
 func Map[Tin, Tout any](in []Tin, f func(Tin) Tout) []Tout {
 	out := make([]Tout, len(in))
@@ -49,4 +49,19 @@ func Intersect[T comparable](a ...[]T) (intersection []T) {
 	}
 
 	return
+}
+
+func Duplicate[T any](a []T) []T {
+	out := make([]T, len(a))
+	copy(out, a)
+	return out
+}
+
+func Has[T comparable](a []T, x T) bool {
+	for i := range a {
+		if a[i] == x {
+			return true
+		}
+	}
+	return false
 }

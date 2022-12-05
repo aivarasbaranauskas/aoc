@@ -3,7 +3,8 @@ package main
 import (
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_a"
+	"github.com/aivarasbaranauskas/aoc/internal/_num"
+	"github.com/aivarasbaranauskas/aoc/internal/_slice"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
 	"io/ioutil"
 	"log"
@@ -24,10 +25,10 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	heightmap := _a.Map(
+	heightmap := _slice.Map(
 		strings.Split(string(fullFile), "\n"),
 		func(line string) []int {
-			return _a.Map(
+			return _slice.Map(
 				strings.Split(line, ""),
 				optimistic.Atoi,
 			)
@@ -45,7 +46,7 @@ func main() {
 	}
 
 	sort.Ints(sizes)
-	fmt.Println(_a.Product(sizes[len(sizes)-3:]...))
+	fmt.Println(_num.Product(sizes[len(sizes)-3:]...))
 }
 
 func basinSize(heightmap [][]int, i, j int) int {

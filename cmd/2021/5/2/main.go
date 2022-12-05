@@ -5,7 +5,7 @@ import (
 	"embed"
 	"errors"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_a"
+	"github.com/aivarasbaranauskas/aoc/internal/_num"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
 	"io"
 	"log"
@@ -37,8 +37,8 @@ func main() {
 		x2 := optimistic.Atoi(splEnd[0])
 		y2 := optimistic.Atoi(splEnd[1])
 
-		maxX = _a.Max(maxX, x1, x2)
-		maxY = _a.Max(maxY, y1, y2)
+		maxX = _num.Max(maxX, x1, x2)
+		maxY = _num.Max(maxY, y1, y2)
 		lines = append(lines, [2][2]int{{x1, y1}, {x2, y2}})
 	}
 	if err = s.Err(); err != nil && !errors.Is(err, io.EOF) {
@@ -72,8 +72,8 @@ func main() {
 				y += yMod
 			}
 		} else {
-			xFrom, xTo := _a.Min(x1, x2), _a.Max(x1, x2)
-			yFrom, yTo := _a.Min(y1, y2), _a.Max(y1, y2)
+			xFrom, xTo := _num.Min(x1, x2), _num.Max(x1, x2)
+			yFrom, yTo := _num.Min(y1, y2), _num.Max(y1, y2)
 			for x := xFrom; x <= xTo; x++ {
 				for y := yFrom; y <= yTo; y++ {
 					matrix[x][y]++

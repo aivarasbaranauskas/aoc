@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_a"
+	"github.com/aivarasbaranauskas/aoc/internal/_slice"
 	"log"
 	"strings"
 )
@@ -24,7 +24,7 @@ func main() {
 		line := r.Text()
 		items := []byte(strings.TrimSpace(line))
 		l := len(items)
-		intr := _a.Intersect(items[:l/2], items[l/2:])
+		intr := _slice.Intersect(items[:l/2], items[l/2:])
 		item := intr[0]
 		if int(item) >= int('a') {
 			sum += int(item) - int('a') + 1

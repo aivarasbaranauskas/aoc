@@ -5,6 +5,7 @@ import (
 	"embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/internal/_a"
+	"github.com/aivarasbaranauskas/aoc/internal/_slice"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
 	"log"
 	"strings"
@@ -24,7 +25,7 @@ func main() {
 	r := bufio.NewScanner(f)
 	for r.Scan() {
 		energyLevels = append(energyLevels,
-			_a.Map(
+			_slice.Map(
 				strings.Split(r.Text(), ""),
 				optimistic.Atoi,
 			),
