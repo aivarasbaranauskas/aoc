@@ -35,6 +35,14 @@ func Sum[T Numeric](numbers ...T) (sum T) {
 	return
 }
 
+func Product[T Numeric](numbers ...T) (p T) {
+	p = 1
+	for i := range numbers {
+		p *= numbers[i]
+	}
+	return
+}
+
 func Abs[T SignedNumeric](x T) T {
 	if x < 0 {
 		return -x
