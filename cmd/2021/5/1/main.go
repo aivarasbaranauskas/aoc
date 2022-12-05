@@ -5,7 +5,7 @@ import (
 	"embed"
 	"errors"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/a"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
 	"io"
 	"log"
@@ -42,8 +42,8 @@ func main() {
 			continue
 		}
 
-		maxX = a.Max(maxX, x1, x2)
-		maxY = a.Max(maxY, y1, y2)
+		maxX = _a.Max(maxX, x1, x2)
+		maxY = _a.Max(maxY, y1, y2)
 		lines = append(lines, [2][2]int{{x1, y1}, {x2, y2}})
 	}
 	if err = s.Err(); err != nil && !errors.Is(err, io.EOF) {
@@ -58,8 +58,8 @@ func main() {
 	}
 
 	for _, line := range lines {
-		xFrom, xTo := a.Min(line[0][0], line[1][0]), a.Max(line[0][0], line[1][0])
-		yFrom, yTo := a.Min(line[0][1], line[1][1]), a.Max(line[0][1], line[1][1])
+		xFrom, xTo := _a.Min(line[0][0], line[1][0]), _a.Max(line[0][0], line[1][0])
+		yFrom, yTo := _a.Min(line[0][1], line[1][1]), _a.Max(line[0][1], line[1][1])
 		for x := xFrom; x <= xTo; x++ {
 			for y := yFrom; y <= yTo; y++ {
 				matrix[x][y]++

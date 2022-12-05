@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/aivarasbaranauskas/aoc/internal/a"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 )
 
 //go:embed input.txt
@@ -15,14 +15,14 @@ var inputData embed.FS
 func parseNum(line []byte) int {
 	numStr := string(line[1:])
 	num, err := strconv.Atoi(numStr)
-	a.CheckErr(err)
+	_a.CheckErr(err)
 
 	return num
 }
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	a.CheckErr(err)
+	_a.CheckErr(err)
 	scanner := bufio.NewScanner(f)
 
 	freq := 0

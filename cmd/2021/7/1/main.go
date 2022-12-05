@@ -3,7 +3,7 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/a"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"math"
 	"strconv"
 	"strings"
@@ -23,14 +23,14 @@ func main() {
 		}
 	}
 
-	maxPos := a.Max(positions...)
+	maxPos := _a.Max(positions...)
 	minSum := math.MaxInt
 	for i := 0; i < maxPos; i++ {
 		var sum int
 		for _, position := range positions {
-			sum += a.Abs(i - position)
+			sum += _a.Abs(i - position)
 		}
-		minSum = a.Min(minSum, sum)
+		minSum = _a.Min(minSum, sum)
 	}
 
 	fmt.Println(minSum)

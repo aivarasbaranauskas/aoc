@@ -1,4 +1,4 @@
-package a
+package _a
 
 func Map[Tin, Tout any](in []Tin, f func(Tin) Tout) []Tout {
 	out := make([]Tout, len(in))

@@ -5,7 +5,7 @@ import (
 	"embed"
 	"fmt"
 
-	"github.com/aivarasbaranauskas/aoc/internal/a"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 )
 
 //go:embed input.txt
@@ -13,7 +13,7 @@ var inputData embed.FS
 
 func readInput(file string) [][]byte {
 	f, err := inputData.Open(file)
-	a.CheckErr(err)
+	_a.CheckErr(err)
 	scanner := bufio.NewScanner(f)
 
 	res := []([]byte){}
