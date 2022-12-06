@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"fmt"
+	"github.com/aivarasbaranauskas/aoc/internal/_set"
 	"io/ioutil"
 	"log"
 )
@@ -20,20 +21,12 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	var o []byte
-	for i, c := range fullFileB {
-		o = append(o, c)
+	for i := range fullFileB {
 		if i >= 14 {
-			x := make(map[byte]struct{})
-			for j := 0; j < 14; j++ {
-				x[o[i-j]] = struct{}{}
-			}
-			if len(x) == 14 {
+			if _set.FromSlice(fullFileB[i-14:i]).Len() == 14 {
+				fmt.Println(i)
 				break
 			}
 		}
 	}
-
-	fmt.Println(string(o))
-	fmt.Println(len(o))
 }
