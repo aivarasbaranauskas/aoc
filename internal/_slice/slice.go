@@ -65,3 +65,12 @@ func Has[T comparable](a []T, x T) bool {
 	}
 	return false
 }
+
+func First[T any](a []T, check func(T) bool) int {
+	for i := 0; i < len(a); i++ {
+		if check(a[i]) {
+			return i
+		}
+	}
+	return -1
+}

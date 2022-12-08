@@ -9,6 +9,9 @@ type SignedNumeric interface {
 }
 
 func Max[T Numeric](numbers ...T) (max T) {
+	if len(numbers) == 0 {
+		return
+	}
 	max = numbers[0]
 	for i := 1; i < len(numbers); i++ {
 		if max < numbers[i] {
@@ -19,6 +22,9 @@ func Max[T Numeric](numbers ...T) (max T) {
 }
 
 func Min[T Numeric](numbers ...T) (min T) {
+	if len(numbers) == 0 {
+		return
+	}
 	min = numbers[0]
 	for i := 1; i < len(numbers); i++ {
 		if min > numbers[i] {
