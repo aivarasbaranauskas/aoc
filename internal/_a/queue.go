@@ -14,6 +14,10 @@ func (s *Queue[T]) Dequeue() (item T) {
 	return
 }
 
+func (s *Queue[T]) Len() int {
+	return len(s.items)
+}
+
 func (s *Queue[T]) Empty() bool {
 	return len(s.items) == 0
 }

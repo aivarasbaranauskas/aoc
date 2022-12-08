@@ -86,3 +86,13 @@ func CountUnique[T comparable](a []T) map[T]int {
 	}
 	return m
 }
+
+func Filter[T any](a []T, f func(T) bool) []T {
+	var a1 []T
+	for _, value := range a {
+		if f(value) {
+			a1 = append(a1, value)
+		}
+	}
+	return a1
+}
