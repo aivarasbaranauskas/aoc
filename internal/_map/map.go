@@ -8,6 +8,14 @@ func Keys[TKey comparable, TValue any](m map[TKey]TValue) []TKey {
 	return a
 }
 
+func Values[TKey comparable, TValue any](m map[TKey]TValue) []TValue {
+	a := make([]TValue, 0, len(m))
+	for _, value := range m {
+		a = append(a, value)
+	}
+	return a
+}
+
 func IsSet[TKey comparable, TValue any](m map[TKey]TValue, key TKey) bool {
 	_, ok := m[key]
 	return ok

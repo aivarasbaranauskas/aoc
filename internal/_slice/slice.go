@@ -74,3 +74,15 @@ func First[T any](a []T, check func(T) bool) int {
 	}
 	return -1
 }
+
+func CountUnique[T comparable](a []T) map[T]int {
+	m := map[T]int{}
+	for _, x := range a {
+		if _, ok := m[x]; ok {
+			m[x]++
+		} else {
+			m[x] = 1
+		}
+	}
+	return m
+}
