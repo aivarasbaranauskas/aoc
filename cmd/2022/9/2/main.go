@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
+	"github.com/aivarasbaranauskas/aoc/internal/_num"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
 	"log"
 	"strings"
@@ -52,61 +53,18 @@ func main() {
 		for i := 0; i < c; i++ {
 			rope[0] = [2]int{rope[0][0] + x, rope[0][1] + y}
 			for j := 1; j < 10; j++ {
-				diff := [2]int{rope[j-1][0] - rope[j][0], rope[j-1][1] - rope[j][1]}
-				switch diff {
-				case [2]int{2, 0}:
-					rope[j][0]++
-				case [2]int{-2, 0}:
-					rope[j][0]--
-				case [2]int{0, 2}:
-					rope[j][1]++
-				case [2]int{0, -2}:
-					rope[j][1]--
+				diff := [2]int{
+					rope[j-1][0] - rope[j][0],
+					rope[j-1][1] - rope[j][1],
+				}
 
-				case [2]int{2, 2}:
-					rope[j][0]++
-					rope[j][1]++
-				case [2]int{-2, 2}:
-					rope[j][0]--
-					rope[j][1]++
-				case [2]int{-2, -2}:
-					rope[j][0]--
-					rope[j][1]--
-				case [2]int{2, -2}:
-					rope[j][0]++
-					rope[j][1]--
-
-				case [2]int{2, 1}:
-					rope[j][0]++
-					rope[j][1]++
-				case [2]int{2, -1}:
-					rope[j][0]++
-					rope[j][1]--
-				case [2]int{-2, 1}:
-					rope[j][0]--
-					rope[j][1]++
-				case [2]int{-2, -1}:
-					rope[j][0]--
-					rope[j][1]--
-
-				case [2]int{1, 2}:
-					rope[j][0]++
-					rope[j][1]++
-				case [2]int{-1, 2}:
-					rope[j][0]--
-					rope[j][1]++
-				case [2]int{1, -2}:
-					rope[j][0]++
-					rope[j][1]--
-				case [2]int{-1, -2}:
-					rope[j][0]--
-					rope[j][1]--
+				if _num.Abs(diff[0]) > 1 || _num.Abs(diff[1]) > 1 {
+					rope[j][0] += _num.Sign(diff[0])
+					rope[j][1] += _num.Sign(diff[1])
 				}
 			}
 			visited[rope[9]] = true
-			fmt.Println(rope)
 		}
-		fmt.Println()
 	}
 
 	fmt.Println(len(visited))

@@ -49,6 +49,16 @@ func Product[T Numeric](numbers ...T) (p T) {
 	return
 }
 
+func Sign[T SignedNumeric](x T) T {
+	if x > 0 {
+		return 1
+	}
+	if x < 0 {
+		return -1
+	}
+	return 0
+}
+
 func Abs[T SignedNumeric](x T) T {
 	if x < 0 {
 		return -x
