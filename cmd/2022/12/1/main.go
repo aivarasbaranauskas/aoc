@@ -5,7 +5,9 @@ import (
 	"embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/internal/_a"
+	"github.com/aivarasbaranauskas/aoc/internal/_set"
 	"github.com/aivarasbaranauskas/aoc/internal/_slice"
+	"github.com/fatih/color"
 	"log"
 	"strings"
 )
@@ -81,4 +83,22 @@ func main() {
 
 	fmt.Println(len(items) - 1)
 	fmt.Println(string(items))
+	fmt.Println()
+	draw(totalPath, m)
+}
+
+func draw(path [][2]int, m [][]byte) {
+	whilte := color.New(color.FgWhite)
+	boldWhite := whilte.Add(color.BgRed)
+	p := _set.FromSlice(path)
+	for i := range m {
+		for j := range m[i] {
+			if p.Has([2]int{i, j}) {
+				_, _ = boldWhite.Print(string(m[i][j]))
+			} else {
+				fmt.Print(string(m[i][j]))
+			}
+		}
+		fmt.Println()
+	}
 }
