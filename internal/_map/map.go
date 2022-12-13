@@ -1,5 +1,7 @@
 package _map
 
+import "github.com/aivarasbaranauskas/aoc/internal/_num"
+
 func Keys[TKey comparable, TValue any](m map[TKey]TValue) []TKey {
 	a := make([]TKey, 0, len(m))
 	for key := range m {
@@ -27,4 +29,24 @@ func Duplicate[TKey comparable, TValue any](m map[TKey]TValue) map[TKey]TValue {
 		newM[key] = value
 	}
 	return newM
+}
+
+func Max[TKey comparable, TValue _num.Numeric](m map[TKey]TValue) (TKey, TValue) {
+	var (
+		kMax TKey
+		vMax TValue
+		f    bool
+	)
+
+	for key, value := range m {
+		if !f {
+			f = true
+			kMax, vMax = key, value
+			continue
+		}
+		if vMax < value {
+			kMax, vMax = key, value
+		}
+	}
+	return kMax, vMax
 }
