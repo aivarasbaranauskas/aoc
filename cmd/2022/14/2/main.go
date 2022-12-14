@@ -9,6 +9,7 @@ import (
 	"log"
 	"math"
 	"strings"
+	"time"
 )
 
 //go:embed input.txt
@@ -67,7 +68,20 @@ func main() {
 		}
 	}
 
+	fmt.Print("\033[H\033[2J")
+	fmt.Print("\033[?25l")
+
+	for _, l := range m {
+		for _, c := range l {
+			fmt.Print(string(c))
+		}
+		fmt.Println()
+	}
+
 	xStart, yStart := xCenter, 0
+	fmt.Printf("\033[%v;%vH", yStart+1, xStart+1)
+	fmt.Print("X")
+	time.Sleep(time.Second * 3)
 	x, y := xStart, yStart
 	ct := 0
 	for {
@@ -77,6 +91,9 @@ func main() {
 
 		if y+1 == ySize {
 			m[y][x] = 'o'
+			fmt.Printf("\033[%v;%vH", y+1, x+1)
+			fmt.Print("o")
+			time.Sleep(time.Microsecond * 300)
 			ct++
 			x, y = xStart, yStart
 		}
@@ -102,15 +119,15 @@ func main() {
 			continue
 		}
 		m[y][x] = 'o'
+		fmt.Printf("\033[%v;%vH", y+1, x+1)
+		fmt.Print("o")
+		time.Sleep(time.Microsecond * 300)
 		ct++
 		x, y = xStart, yStart
 	}
 
-	for _, l := range m {
-		for _, c := range l {
-			fmt.Print(string(c))
-		}
-		fmt.Println()
-	}
+	fmt.Printf("\033[%v;%vH", len(m), len(m[0])+1)
+	fmt.Println()
+
 	fmt.Println(ct)
 }
