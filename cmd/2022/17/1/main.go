@@ -8,29 +8,50 @@ import (
 	"log"
 )
 
-var figures = [][][2]int{
+type Figure struct {
+	bs []uint8
+	w  int
+	h  int
+}
+
+var figures = []Figure{
 	{
-		{0, 0}, {0, 1}, {0, 2}, {0, 3},
+		bs: []uint8{
+			0b1111,
+		},
+		w: 4, h: 1,
 	},
 	{
-		{0, 1},
-		{1, 0}, {1, 1}, {1, 2},
-		{2, 1},
+		bs: []uint8{
+			0b010,
+			0b111,
+			0b010,
+		},
+		w: 3, h: 3,
 	},
 	{
-		{2, 2},
-		{1, 2},
-		{0, 0}, {0, 1}, {0, 2},
+		bs: []uint8{
+			0b111,
+			0b100,
+			0b100,
+		},
+		w: 3, h: 3,
 	},
 	{
-		{0, 0},
-		{1, 0},
-		{2, 0},
-		{3, 0},
+		bs: []uint8{
+			0b1,
+			0b1,
+			0b1,
+			0b1,
+		},
+		w: 1, h: 4,
 	},
 	{
-		{0, 0}, {0, 1},
-		{1, 0}, {1, 1},
+		bs: []uint8{
+			0b11,
+			0b11,
+		},
+		w: 2, h: 2,
 	},
 }
 
@@ -47,8 +68,9 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
+	ffbL := len(ffb)
 
-	var m [][7]bool
+	var m []uint8
 	z := 0
 
 	for n := 0; n < 2022; n++ {
@@ -60,10 +82,10 @@ func main() {
 			if ffb[z] == '<' {
 				ch = -1
 			}
-			z = (z + 1) % len(ffb)
+			z = (z + 1) % ffbL
 
 			xTmp := clamp(x+ch, 0, 6)
-			if x != xTmp && xInBounds(xTmp, fig) && noCollision(xTmp, y, fig, m) {
+			if x != xTmp && xTmp+fig.w <= 7 && noCollision(xTmp, y, fig, m) {
 				x = xTmp
 			}
 
@@ -74,58 +96,26 @@ func main() {
 			}
 		}
 
-		for _, p := range fig {
-			if len(m) <= y+p[0] {
-				// grow
-				g := y + p[0] + 1 - len(m)
-				for i := 0; i < g; i++ {
-					m = append(m, [7]bool{})
-				}
+		if len(m) <= y+fig.h {
+			// grow
+			g := y + fig.h - len(m)
+			for i := 0; i < g; i++ {
+				m = append(m, 0)
 			}
-			m[y+p[0]][x+p[1]] = true
+		}
+		for yy, p := range fig.bs {
+			m[y+yy] = m[y+yy] | (p << x)
 		}
 		//draw(m)
 	}
 
-	//for _, d := range ffb {
-	//	ch := 1
-	//	if d == '<' {
-	//		ch = -1
-	//	}
-	//
-	//	xTmp := clamp(x+ch, 0, 6)
-	//	if x != xTmp && xInBounds(xTmp, fig) && noCollision(xTmp, y, fig, m) {
-	//		x = xTmp
-	//	}
-	//
-	//	if y > 0 && noCollision(x, y-1, fig, m) {
-	//		y--
-	//		continue
-	//	}
-	//
-	//	for _, p := range fig {
-	//		if len(m) <= y+p[0] {
-	//			// grow
-	//			g := y + p[0] + 1 - len(m)
-	//			for i := 0; i < g; i++ {
-	//				m = append(m, [7]bool{})
-	//			}
-	//		}
-	//		m[y+p[0]][x+p[1]] = true
-	//	}
-	//	figId = (figId + 1) % 5
-	//	fig = figures[figId]
-	//	x = 2
-	//	y = len(m) + 3
-	//}
-
 	fmt.Println(len(m))
 }
 
-func draw(m [][7]bool) {
+func draw(m []uint8) {
 	for i := len(m) - 1; i >= 0; i-- {
 		for j := 0; j < 7; j++ {
-			if m[i][j] {
+			if m[i]&(1<<j) == uint8(1<<j) {
 				fmt.Print("#")
 			} else {
 				fmt.Print(".")
@@ -136,18 +126,12 @@ func draw(m [][7]bool) {
 	fmt.Println()
 }
 
-func xInBounds(x int, fig [][2]int) bool {
-	for _, p := range fig {
-		if p[1]+x >= 7 {
-			return false
-		}
+func noCollision(x, y int, fig Figure, m []uint8) bool {
+	if y >= len(m) {
+		return true
 	}
-	return true
-}
-
-func noCollision(x, y int, fig [][2]int, m [][7]bool) bool {
-	for _, p := range fig {
-		if len(m) > y+p[0] && m[y+p[0]][x+p[1]] {
+	for i := 0; i < len(fig.bs) && y+i < len(m); i++ {
+		if m[y+i]&(fig.bs[i]<<x) > 0 {
 			return false
 		}
 	}
