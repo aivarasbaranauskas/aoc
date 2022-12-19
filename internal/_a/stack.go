@@ -21,6 +21,10 @@ func (s *Stack[T]) Empty() bool {
 	return len(s.items) == 0
 }
 
+func (s *Stack[T]) Len() int {
+	return len(s.items)
+}
+
 type CStack[T any] struct {
 	s  Stack[T]
 	mu sync.Mutex
