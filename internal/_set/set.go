@@ -39,6 +39,31 @@ func (s Set[T]) ToSlice() []T {
 	return sl
 }
 
+func (s Set[T]) MinBy(f func(T) int) T {
+	if len(s) == 0 {
+		panic("empty set")
+	}
+	var (
+		x        T
+		v        int
+		notFirst bool
+	)
+
+	for item := range s {
+		if !notFirst {
+			notFirst = true
+			x = item
+			v = f(item)
+			continue
+		}
+		if vI := f(item); vI < v {
+			v = vI
+			x = item
+		}
+	}
+	return x
+}
+
 func (s Set[T]) Len() int {
 	return len(s)
 }
