@@ -57,9 +57,12 @@ func (p *Progress) print() {
 }
 
 func (p *Progress) doPrint() {
+	ct := p.Get()
+	rate := int(float64(ct) / time.Now().Sub(p.start).Seconds())
 	if p.total == 0 {
-		log.Printf("Progress: %v\n", p.Get())
+		log.Printf("Progress: %v; %v/s\n", ct, rate)
 	} else {
-		log.Printf("Progress: %v/%v -- %.2f%%\n", p.Get(), p.total, float64(p.Get())/float64(p.total))
+		est := time.Second * time.Duration(int(p.total)/rate)
+		log.Printf("Progress: %v/%v -- %.2f%%; %v/s; ETA %v\n", ct, p.total, float64(ct)/float64(p.total), rate, est)
 	}
 }
