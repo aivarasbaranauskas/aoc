@@ -106,3 +106,12 @@ func Filter[T any](a []T, f func(T) bool) []T {
 	}
 	return a1
 }
+
+func Remove[T any](a []T, i int) ([]T, T) {
+	v := a[i]
+	return append(a[:i], a[i+1:]...), v
+}
+
+func Insert[T any](a []T, i int, v T) []T {
+	return append(append(a[:i], v), a[i+1:]...)
+}
