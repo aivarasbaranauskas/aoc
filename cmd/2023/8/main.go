@@ -3,6 +3,7 @@ package main
 import (
 	_ "embed"
 	"fmt"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/_map"
 	"github.com/aivarasbaranauskas/aoc/internal/_slice"
 	"strings"
@@ -49,7 +50,7 @@ func countStepsP2(steps []int, network Network) int {
 		loopSizes[i] = ct
 	}
 
-	return LCM(loopSizes...)
+	return _a.LCM(loopSizes...)
 }
 
 func countStepsP1(steps []int, network Network) int {
@@ -78,21 +79,4 @@ func parseNetwork(lines []string) Network {
 	}
 
 	return m
-}
-
-func GCD(a, b int) int {
-	for b != 0 {
-		a, b = b, a%b
-	}
-	return a
-}
-
-func LCM(x ...int) int {
-	result := x[0]
-
-	for i := 1; i < len(x); i++ {
-		result = result * x[i] / GCD(result, x[i])
-	}
-
-	return result
 }
