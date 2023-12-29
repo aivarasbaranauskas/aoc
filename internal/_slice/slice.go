@@ -1,5 +1,7 @@
 package _slice
 
+import "github.com/aivarasbaranauskas/aoc/internal/_map"
+
 func Map[Tin, Tout any](in []Tin, f func(Tin) Tout) []Tout {
 	out := make([]Tout, len(in))
 	for i, x := range in {
@@ -85,6 +87,14 @@ func CountUnique[T comparable](a []T) map[T]int {
 		}
 	}
 	return m
+}
+
+func Unique[T comparable](a []T) []T {
+	m := map[T]struct{}{}
+	for _, x := range a {
+		m[x] = struct{}{}
+	}
+	return _map.Keys(m)
 }
 
 func CountCond[T any](a []T, f func(T) bool) int {
