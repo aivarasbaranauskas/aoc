@@ -2,6 +2,7 @@ package _matrix
 
 import (
 	"github.com/aivarasbaranauskas/aoc/internal/_num"
+	"math"
 )
 
 func Transpose[T any](m [][]T) [][]T {
@@ -36,4 +37,64 @@ func Multiply[T _num.Numeric](a, b [][]T) [][]T {
 	}
 
 	return p
+}
+
+func Minor[T any](m [][]T, i, j int) [][]T {
+	m2 := make([][]T, 0, len(m)-1)
+	for ii, row := range m {
+		if i == ii {
+			continue
+		}
+		m2 = append(m2, append(row[:j], row[:j+1]...))
+	}
+	return m2
+}
+
+func Determinant[T _num.SignedNumeric](m [][]T) T {
+	//base case for 2x2 matrix
+	if len(m) == 2 {
+		return m[0][0]*m[1][1] - m[0][1]*m[1][0]
+	}
+
+	d := T(0)
+	for c := range m {
+		cc := T(math.Pow(-1, float64(c)))
+		d += (cc) * m[0][c] * Determinant(Minor(m, 0, c))
+	}
+	return d
+}
+
+func Inverse[T _num.SignedNumeric](m [][]T) ([][]T, bool) {
+	d := Determinant(m)
+	if d == 0 {
+		return nil, false
+	}
+
+	//special case for 2x2 matrix:
+	if len(m) == 2 {
+		return [][]T{
+			{m[1][1] / d, -1 * m[0][1] / d},
+			{-1 * m[1][0] / d, m[0][0] / d},
+		}, true
+	}
+
+	// find matrix of cofactors
+	var cofactors [][]T
+	for r := range m {
+		var cofactorRow []T
+		for c := range m {
+			minor := Minor(m, r, c)
+			cc := T(math.Pow(-1, float64(r+c)))
+			cofactorRow = append(cofactorRow, cc*Determinant(minor))
+		}
+		cofactors = append(cofactors, cofactorRow)
+	}
+	cofactors = Transpose(cofactors)
+	for r := range cofactors {
+		for c := range cofactors {
+			cofactors[r][c] = cofactors[r][c] / d
+		}
+	}
+
+	return cofactors, true
 }
