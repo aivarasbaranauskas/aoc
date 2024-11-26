@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_set"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"strings"
 )
@@ -60,5 +60,5 @@ func main() {
 
 func gI(s string) int {
 	spl := strings.Split(s, "=")
-	return optimistic.Atoi(spl[1])
+	return o.Atoi(spl[1])
 }

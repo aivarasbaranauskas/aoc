@@ -3,8 +3,8 @@ package main
 import (
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
-	"io/ioutil"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
+	"io"
 	"log"
 	"sort"
 	"strings"
@@ -19,7 +19,7 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	fullFileB, err := ioutil.ReadAll(f)
+	fullFileB, err := io.ReadAll(f)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -68,7 +68,7 @@ func main() {
 						current.dirs[fName] = newD
 						dirs = append(dirs, newD)
 					} else {
-						current.files[fName] = optimistic.Atoi(splLine[0])
+						current.files[fName] = o.Atoi(splLine[0])
 					}
 				}
 			} else {

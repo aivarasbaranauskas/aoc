@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_slice"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"sort"
 	"strings"
 )
@@ -25,9 +25,9 @@ func init() {
 	for _, monkeyData := range strings.Split(input, "\n\n") {
 		lines := strings.Split(monkeyData, "\n")
 
-		div := optimistic.Atoi(strings.Split(lines[3], "by ")[1])
-		divTrue := optimistic.Atoi(strings.Split(lines[4], "monkey ")[1])
-		divFalse := optimistic.Atoi(strings.Split(lines[5], "monkey ")[1])
+		div := o.Atoi(strings.Split(lines[3], "by ")[1])
+		divTrue := o.Atoi(strings.Split(lines[4], "monkey ")[1])
+		divFalse := o.Atoi(strings.Split(lines[5], "monkey ")[1])
 
 		var op func(int) int
 
@@ -39,7 +39,7 @@ func init() {
 				op = func(i int) int { return i * i }
 			}
 		} else {
-			x := optimistic.Atoi(spl[5])
+			x := o.Atoi(spl[5])
 			if spl[4] == "+" {
 				op = func(i int) int { return i + x }
 			} else if spl[4] == "*" {
@@ -48,7 +48,7 @@ func init() {
 		}
 
 		monkeys = append(monkeys, &Monkey{
-			Items:     _slice.Map(strings.Split(strings.Split(lines[1], ": ")[1], ", "), optimistic.Atoi),
+			Items:     _slice.Map(strings.Split(strings.Split(lines[1], ": ")[1], ", "), o.Atoi),
 			Operation: op,
 			Test: func(i int) int {
 				if i%div == 0 {

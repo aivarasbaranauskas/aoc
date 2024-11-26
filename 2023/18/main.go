@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"strconv"
 	"strings"
 )
@@ -54,7 +54,7 @@ func part1() {
 	for _, line := range strings.Split(input, "\n") {
 		spl := strings.Split(line, " ")
 		d := Ds[spl[0]]
-		n := optimistic.Atoi(spl[1])
+		n := o.Atoi(spl[1])
 
 		p[0] += d[0] * n
 		p[1] += d[1] * n

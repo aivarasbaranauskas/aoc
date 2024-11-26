@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
 	"log"
 	"math"
 	"strings"
@@ -52,7 +51,7 @@ func main() {
 		nums = append(nums, num)
 	}
 
-	var max int
+	var maxV int
 	for i := 0; i < len(nums); i++ {
 		for j := 0; j < len(nums); j++ {
 			if i == j {
@@ -73,11 +72,11 @@ func main() {
 				}
 			}
 
-			max = _num.Max(max, a.Magnitude())
+			maxV = max(maxV, a.Magnitude())
 		}
 	}
 
-	fmt.Println(max)
+	fmt.Println(maxV)
 }
 
 type Node struct {

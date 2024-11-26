@@ -4,9 +4,8 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_slice"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"strings"
 )
@@ -25,7 +24,7 @@ func main() {
 		trees [][]int
 	)
 	for r.Scan() {
-		trees = append(trees, _slice.Map(strings.Split(r.Text(), ""), optimistic.Atoi))
+		trees = append(trees, _slice.Map(strings.Split(r.Text(), ""), o.Atoi))
 	}
 
 	l := len(trees)
@@ -71,7 +70,7 @@ func main() {
 					break
 				}
 			}
-			maxScenicScore = _num.Max(maxScenicScore, down*up*left*right)
+			maxScenicScore = max(maxScenicScore, down*up*left*right)
 			fmt.Println(x, y, maxScenicScore, down, up, left, right)
 		}
 	}

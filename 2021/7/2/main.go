@@ -23,7 +23,7 @@ func main() {
 		}
 	}
 
-	maxPos := _num.Max(positions...)
+	maxPos := max(0, positions...)
 	minSum := math.MaxInt
 	for i := 0; i < maxPos; i++ {
 		var sum int
@@ -33,7 +33,7 @@ func main() {
 				sum += distance * (1 + distance) / 2
 			}
 		}
-		minSum = _num.Min(minSum, sum)
+		minSum = min(minSum, sum)
 	}
 
 	fmt.Println(minSum)

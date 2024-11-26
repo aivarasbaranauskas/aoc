@@ -5,9 +5,8 @@ import (
 	"embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_matrix"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_slice"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"strings"
 )
@@ -24,7 +23,7 @@ func main() {
 	r := bufio.NewScanner(f)
 	var trees [][]int
 	for r.Scan() {
-		trees = append(trees, _slice.Map(strings.Split(r.Text(), ""), optimistic.Atoi))
+		trees = append(trees, _slice.Map(strings.Split(r.Text(), ""), o.Atoi))
 	}
 
 	treesT := _matrix.Transpose(trees)
@@ -34,7 +33,7 @@ func main() {
 
 	for x := 1; x < l-1; x++ {
 		for y := 1; y < w-1; y++ {
-			if trees[x][y] > _num.Min(_num.Max(treesT[y][x+1:]...), _num.Max(treesT[y][:x]...), _num.Max(trees[x][y+1:]...), _num.Max(trees[x][:y]...)) {
+			if trees[x][y] > min(max(0, treesT[y][x+1:]...), max(0, treesT[y][:x]...), max(0, trees[x][y+1:]...), max(0, trees[x][:y]...)) {
 				vCt++
 			}
 		}

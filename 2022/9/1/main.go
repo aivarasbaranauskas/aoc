@@ -5,7 +5,7 @@ import (
 	"embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"strings"
 )
@@ -25,7 +25,7 @@ func main() {
 	for r.Scan() {
 		line := r.Text()
 		spl := strings.Split(line, " ")
-		c := optimistic.Atoi(spl[1])
+		c := o.Atoi(spl[1])
 
 		x, y := 0, 0
 		switch spl[0] {

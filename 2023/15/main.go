@@ -5,7 +5,7 @@ import (
 	_ "embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_slice"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 )
 
 //go:embed input.txt
@@ -39,7 +39,7 @@ OpLoop:
 		h := HASH(s[:opI])
 
 		if s[opI] == '=' {
-			focalLength := optimistic.Atoi(string(s[opI+1:]))
+			focalLength := o.Atoi(string(s[opI+1:]))
 
 			for i, lens := range boxes[h] {
 				if lens.Label == label {

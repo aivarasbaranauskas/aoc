@@ -4,8 +4,7 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"strings"
 )
@@ -32,16 +31,16 @@ func main() {
 		spl = strings.Split(spl[1], ",")
 
 		splx := strings.Split(spl[0][2:], "..")
-		cube.x1 = optimistic.Atoi(splx[0])
-		cube.x2 = optimistic.Atoi(splx[1])
+		cube.x1 = o.Atoi(splx[0])
+		cube.x2 = o.Atoi(splx[1])
 
 		sply := strings.Split(spl[1][2:], "..")
-		cube.y1 = optimistic.Atoi(sply[0])
-		cube.y2 = optimistic.Atoi(sply[1])
+		cube.y1 = o.Atoi(sply[0])
+		cube.y2 = o.Atoi(sply[1])
 
 		splz := strings.Split(spl[2][2:], "..")
-		cube.z1 = optimistic.Atoi(splz[0])
-		cube.z2 = optimistic.Atoi(splz[1])
+		cube.z1 = o.Atoi(splz[0])
+		cube.z2 = o.Atoi(splz[1])
 
 		var toAdd []*Cube
 
@@ -80,12 +79,12 @@ func (c *Cube) Size() int {
 
 func intersection(s, t *Cube) *Cube {
 	c := &Cube{
-		x1:   _num.Max(s.x1, t.x1),
-		x2:   _num.Min(s.x2, t.x2),
-		y1:   _num.Max(s.y1, t.y1),
-		y2:   _num.Min(s.y2, t.y2),
-		z1:   _num.Max(s.z1, t.z1),
-		z2:   _num.Min(s.z2, t.z2),
+		x1:   max(s.x1, t.x1),
+		x2:   min(s.x2, t.x2),
+		y1:   max(s.y1, t.y1),
+		y2:   min(s.y2, t.y2),
+		z1:   max(s.z1, t.z1),
+		z2:   min(s.z2, t.z2),
 		mode: !t.mode,
 	}
 

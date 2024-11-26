@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_slice"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"strings"
 )
 
@@ -20,7 +20,7 @@ func main() {
 				return s != ""
 			},
 		),
-		optimistic.Atoi,
+		o.Atoi,
 	)
 	distances := _slice.Map(
 		_slice.Filter(
@@ -29,7 +29,7 @@ func main() {
 				return s != ""
 			},
 		),
-		optimistic.Atoi,
+		o.Atoi,
 	)
 
 	p1 := 1
@@ -37,8 +37,8 @@ func main() {
 		p1 *= calcNumWinWays(times[i], distances[i])
 	}
 
-	time := optimistic.Atoi(strings.ReplaceAll(strings.Split(lines[0], ":")[1], " ", ""))
-	distance := optimistic.Atoi(strings.ReplaceAll(strings.Split(lines[1], ":")[1], " ", ""))
+	time := o.Atoi(strings.ReplaceAll(strings.Split(lines[0], ":")[1], " ", ""))
+	distance := o.Atoi(strings.ReplaceAll(strings.Split(lines[1], ":")[1], " ", ""))
 
 	fmt.Println("part 1:", p1)
 	fmt.Println("part 2:", calcNumWinWays(time, distance))

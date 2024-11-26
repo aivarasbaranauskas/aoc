@@ -3,7 +3,7 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"strings"
 )
 
@@ -22,7 +22,7 @@ func p2() {
 		for _, draw := range strings.Split(strings.Split(line, ": ")[1], "; ") {
 			for _, ballSet := range strings.Split(draw, ", ") {
 				spl := strings.Split(ballSet, " ")
-				ct := optimistic.Atoi(spl[0])
+				ct := o.Atoi(spl[0])
 				switch spl[1] {
 				case "red":
 					r = max(r, ct)
@@ -47,7 +47,7 @@ LineLoop:
 		for _, draw := range strings.Split(strings.Split(line, ": ")[1], "; ") {
 			for _, ballSet := range strings.Split(draw, ", ") {
 				spl := strings.Split(ballSet, " ")
-				ct := optimistic.Atoi(spl[0])
+				ct := o.Atoi(spl[0])
 				switch spl[1] {
 				case "red":
 					if ct > 12 {

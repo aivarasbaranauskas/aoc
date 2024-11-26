@@ -4,8 +4,7 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"strings"
 )
@@ -35,16 +34,16 @@ func main() {
 		spl = strings.Split(spl[1], ",")
 
 		splx := strings.Split(spl[0][2:], "..")
-		xFrom := _num.Max(-50, optimistic.Atoi(splx[0]))
-		xTo := _num.Min(50, optimistic.Atoi(splx[1]))
+		xFrom := max(-50, o.Atoi(splx[0]))
+		xTo := min(50, o.Atoi(splx[1]))
 
 		sply := strings.Split(spl[1][2:], "..")
-		yFrom := _num.Max(-50, optimistic.Atoi(sply[0]))
-		yTo := _num.Min(50, optimistic.Atoi(sply[1]))
+		yFrom := max(-50, o.Atoi(sply[0]))
+		yTo := min(50, o.Atoi(sply[1]))
 
 		splz := strings.Split(spl[2][2:], "..")
-		zFrom := _num.Max(-50, optimistic.Atoi(splz[0]))
-		zTo := _num.Min(50, optimistic.Atoi(splz[1]))
+		zFrom := max(-50, o.Atoi(splz[0]))
+		zTo := min(50, o.Atoi(splz[1]))
 
 		for x := xFrom; x <= xTo; x++ {
 			for y := yFrom; y <= yTo; y++ {

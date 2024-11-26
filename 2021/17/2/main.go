@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_set"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"strings"
 )
 
@@ -17,8 +17,8 @@ func main() {
 	splX := strings.Split(spl[0][2:], "..")
 	splY := strings.Split(spl[1][2:], "..")
 
-	targetXFrom, targetXTo := optimistic.Atoi(splX[0]), optimistic.Atoi(splX[1])
-	targetYFrom, targetYTo := optimistic.Atoi(splY[0]), optimistic.Atoi(splY[1])
+	targetXFrom, targetXTo := o.Atoi(splX[0]), o.Atoi(splX[1])
+	targetYFrom, targetYTo := o.Atoi(splY[0]), o.Atoi(splY[1])
 
 	/**
 	given t
@@ -27,7 +27,7 @@ func main() {
 	*/
 
 	//find all vY
-	maxMaxY := _num.Abs(_num.Min(targetYFrom, targetYTo))
+	maxMaxY := _num.Abs(min(targetYFrom, targetYTo))
 	var vYs []int
 	var vYTs [][]int
 	for vY := -maxMaxY; vY <= maxMaxY; vY++ {
@@ -70,7 +70,7 @@ func simulateX(vX, t, targetXFrom, targetXTo int) bool {
 	x := 0
 	for i := 0; i <= t; i++ {
 		x = x + vX
-		vX = _num.Max(vX-1, 0)
+		vX = max(vX-1, 0)
 	}
 	return targetXFrom <= x && x <= targetXTo
 }

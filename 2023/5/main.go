@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_slice"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"math"
 	"strings"
 )
@@ -15,7 +15,7 @@ var input string
 func main() {
 	sections := strings.Split(input, "\n\n")
 
-	seeds := _slice.Map(strings.Split(strings.Split(sections[0], ": ")[1], " "), optimistic.Atoi)
+	seeds := _slice.Map(strings.Split(strings.Split(sections[0], ": ")[1], " "), o.Atoi)
 
 	var ms [][][]int
 	for i := 1; i < len(sections); i++ {
@@ -116,7 +116,7 @@ func p1(seeds []int, ms [][][]int) {
 func parseMap(section string) [][]int {
 	var m [][]int
 	for _, line := range strings.Split(section, "\n")[1:] {
-		m = append(m, _slice.Map(strings.Split(line, " "), optimistic.Atoi))
+		m = append(m, _slice.Map(strings.Split(line, " "), o.Atoi))
 	}
 	return m
 }

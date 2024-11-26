@@ -4,8 +4,7 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"strings"
 )
@@ -28,11 +27,11 @@ func main() {
 			break
 		}
 		spl := strings.Split(line, ",")
-		x := optimistic.Atoi(spl[0])
-		y := optimistic.Atoi(spl[1])
+		x := o.Atoi(spl[0])
+		y := o.Atoi(spl[1])
 		points = append(points, [2]int{x, y})
-		maxX = _num.Max(maxX, x)
-		maxY = _num.Max(maxY, y)
+		maxX = max(maxX, x)
+		maxY = max(maxY, y)
 	}
 
 	matrix := make([][]bool, maxY+1)
@@ -53,9 +52,9 @@ func main() {
 		spl := strings.Split(line, " ")
 		spl = strings.Split(spl[2], "=")
 		if spl[0] == "x" {
-			folds = append(folds, [2]int{0, optimistic.Atoi(spl[1])})
+			folds = append(folds, [2]int{0, o.Atoi(spl[1])})
 		} else {
-			folds = append(folds, [2]int{1, optimistic.Atoi(spl[1])})
+			folds = append(folds, [2]int{1, o.Atoi(spl[1])})
 		}
 	}
 

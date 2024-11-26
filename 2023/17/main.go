@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_a"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_slice"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"math"
 	"strings"
 )
@@ -21,7 +21,7 @@ func init() {
 		func(line string) []int {
 			return _slice.Map(
 				strings.Split(line, ""),
-				optimistic.Atoi,
+				o.Atoi,
 			)
 		},
 	)

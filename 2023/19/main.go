@@ -3,7 +3,7 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"strings"
 )
 
@@ -168,7 +168,7 @@ func part1() {
 		item := make(map[string]int)
 		for _, s := range strings.Split(line[1:len(line)-1], ",") {
 			spl := strings.Split(s, "=")
-			item[spl[0]] = optimistic.Atoi(spl[1])
+			item[spl[0]] = o.Atoi(spl[1])
 		}
 		if mainWorkflow.Eval(item) {
 			for _, v := range item {
@@ -204,7 +204,7 @@ func buildWorkflow(workflows *map[string]NodeI, workflowsRaw map[string]string, 
 		wf = &WorkflowNode{
 			variable:  spl[0][:si],
 			sign:      spl[0][si : si+1],
-			c:         optimistic.Atoi(spl[0][si+1:]),
+			c:         o.Atoi(spl[0][si+1:]),
 			nextTrue:  buildWorkflow(workflows, workflowsRaw, spl[1]),
 			nextFalse: wf,
 		}

@@ -4,9 +4,8 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_slice"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"strings"
 )
@@ -126,10 +125,10 @@ func ParseLine(line string) *Node {
 
 		x1 := strings.IndexByte(line[i:], ',')
 		x2 := strings.IndexByte(line[i:], ']')
-		x := _num.Min(_slice.Filter([]int{x1, x2}, func(x int) bool {
+		x := min(0, _slice.Filter([]int{x1, x2}, func(x int) bool {
 			return x >= 0
 		})...)
-		s.l = append(s.l, &Node{v: ip(optimistic.Atoi(line[i : i+x]))})
+		s.l = append(s.l, &Node{v: ip(o.Atoi(line[i : i+x]))})
 		i = i + x - 1
 	}
 

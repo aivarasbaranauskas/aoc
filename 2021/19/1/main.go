@@ -9,7 +9,7 @@ import (
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_matrix"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_set"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_slice"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"strings"
 )
@@ -39,9 +39,9 @@ func main() {
 		}
 		spl := strings.Split(line, ",")
 		scanners[n] = append(scanners[n], [3]int{
-			optimistic.Atoi(spl[0]),
-			optimistic.Atoi(spl[1]),
-			optimistic.Atoi(spl[2]),
+			o.Atoi(spl[0]),
+			o.Atoi(spl[1]),
+			o.Atoi(spl[2]),
 		})
 	}
 

@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_map"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_slice"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"sort"
 )
 
@@ -117,7 +117,7 @@ func p2() {
 		return Hand{
 			cards: cards,
 			_type: _type,
-			bid:   optimistic.Atoi(string(spl[1])),
+			bid:   o.Atoi(string(spl[1])),
 		}
 	})
 
@@ -194,7 +194,7 @@ func p1() {
 		return Hand{
 			cards: cards,
 			_type: _type,
-			bid:   optimistic.Atoi(string(spl[1])),
+			bid:   o.Atoi(string(spl[1])),
 		}
 	})
 

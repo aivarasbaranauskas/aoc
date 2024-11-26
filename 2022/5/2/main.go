@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"strings"
 )
@@ -34,9 +34,9 @@ func main() {
 	for r.Scan() {
 		line := r.Text()
 		spl := strings.Split(line, " ")
-		ct := optimistic.Atoi(spl[1])
-		from := optimistic.Atoi(spl[3]) - 1
-		to := optimistic.Atoi(spl[5]) - 1
+		ct := o.Atoi(spl[1])
+		from := o.Atoi(spl[3]) - 1
+		to := o.Atoi(spl[5]) - 1
 
 		lastFrom := len(stacks[from]) - ct
 		stacks[to] = append(stacks[to], stacks[from][lastFrom:]...)

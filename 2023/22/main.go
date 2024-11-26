@@ -6,7 +6,7 @@ import (
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_map"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_slice"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"slices"
 	"strings"
 )
@@ -203,8 +203,8 @@ func parseBrick(s string) Brick {
 func parseCube(s string) Cube {
 	spl := strings.Split(s, ",")
 	return Cube{
-		optimistic.Atoi(spl[0]),
-		optimistic.Atoi(spl[1]),
-		optimistic.Atoi(spl[2]),
+		o.Atoi(spl[0]),
+		o.Atoi(spl[1]),
+		o.Atoi(spl[2]),
 	}
 }

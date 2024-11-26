@@ -5,8 +5,7 @@ import (
 	"embed"
 	"errors"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"io"
 	"log"
 	"strings"
@@ -32,13 +31,13 @@ func main() {
 		spl := strings.Split(line, " -> ")
 		splStart := strings.Split(spl[0], ",")
 		splEnd := strings.Split(spl[1], ",")
-		x1 := optimistic.Atoi(splStart[0])
-		y1 := optimistic.Atoi(splStart[1])
-		x2 := optimistic.Atoi(splEnd[0])
-		y2 := optimistic.Atoi(splEnd[1])
+		x1 := o.Atoi(splStart[0])
+		y1 := o.Atoi(splStart[1])
+		x2 := o.Atoi(splEnd[0])
+		y2 := o.Atoi(splEnd[1])
 
-		maxX = _num.Max(maxX, x1, x2)
-		maxY = _num.Max(maxY, y1, y2)
+		maxX = max(maxX, x1, x2)
+		maxY = max(maxY, y1, y2)
 		lines = append(lines, [2][2]int{{x1, y1}, {x2, y2}})
 	}
 	if err = s.Err(); err != nil && !errors.Is(err, io.EOF) {
@@ -72,8 +71,8 @@ func main() {
 				y += yMod
 			}
 		} else {
-			xFrom, xTo := _num.Min(x1, x2), _num.Max(x1, x2)
-			yFrom, yTo := _num.Min(y1, y2), _num.Max(y1, y2)
+			xFrom, xTo := min(x1, x2), max(x1, x2)
+			yFrom, yTo := min(y1, y2), max(y1, y2)
 			for x := xFrom; x <= xTo; x++ {
 				for y := yFrom; y <= yTo; y++ {
 					matrix[x][y]++

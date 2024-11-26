@@ -38,7 +38,7 @@ func main() {
 		}
 	}
 
-	routes := []string{}
+	var routes []string
 	findRoutes(nodes, &routes, []string{"start"}, "start")
 
 	fmt.Println(len(routes))

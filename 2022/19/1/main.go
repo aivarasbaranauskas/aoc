@@ -5,8 +5,7 @@ import (
 	"embed"
 	"encoding/json"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"strings"
 )
@@ -28,12 +27,12 @@ func main() {
 		bl = append(
 			bl,
 			Blueprint{
-				oreRobot:           optimistic.Atoi(spl[6]),
-				clayRobot:          optimistic.Atoi(spl[12]),
-				obsidianRobotOre:   optimistic.Atoi(spl[18]),
-				obsidianRobotClay:  optimistic.Atoi(spl[21]),
-				geodeRobotOre:      optimistic.Atoi(spl[27]),
-				geodeRobotObsidian: optimistic.Atoi(spl[30]),
+				oreRobot:           o.Atoi(spl[6]),
+				clayRobot:          o.Atoi(spl[12]),
+				obsidianRobotOre:   o.Atoi(spl[18]),
+				obsidianRobotClay:  o.Atoi(spl[21]),
+				geodeRobotOre:      o.Atoi(spl[27]),
+				geodeRobotObsidian: o.Atoi(spl[30]),
 			},
 		)
 	}
@@ -74,11 +73,11 @@ func simulate(s state, t int, b Blueprint, cache map[state]int) int {
 		return v
 	}
 
-	max := 0
+	maxV := 0
 
 	if s.Ore >= b.oreRobot {
-		max = _num.Max(
-			max,
+		maxV = max(
+			maxV,
 			simulate(
 				state{
 					Ore:       s.Ore + s.OreR - b.oreRobot,
@@ -99,8 +98,8 @@ func simulate(s state, t int, b Blueprint, cache map[state]int) int {
 	}
 
 	if s.Ore >= b.clayRobot {
-		max = _num.Max(
-			max,
+		maxV = max(
+			maxV,
 			simulate(
 				state{
 					Ore:       s.Ore + s.OreR - b.clayRobot,
@@ -121,8 +120,8 @@ func simulate(s state, t int, b Blueprint, cache map[state]int) int {
 	}
 
 	if s.Ore >= b.obsidianRobotOre && s.Clay >= b.obsidianRobotClay {
-		max = _num.Max(
-			max,
+		maxV = max(
+			maxV,
 			simulate(
 				state{
 					Ore:       s.Ore + s.OreR - b.obsidianRobotOre,
@@ -143,8 +142,8 @@ func simulate(s state, t int, b Blueprint, cache map[state]int) int {
 	}
 
 	if s.Ore >= b.geodeRobotOre && s.Obsidian >= b.geodeRobotObsidian {
-		max = _num.Max(
-			max,
+		maxV = max(
+			maxV,
 			simulate(
 				state{
 					Ore:       s.Ore + s.OreR - b.geodeRobotOre,
@@ -164,8 +163,8 @@ func simulate(s state, t int, b Blueprint, cache map[state]int) int {
 		)
 	}
 
-	max = _num.Max(
-		max,
+	maxV = max(
+		maxV,
 		simulate(
 			state{
 				Ore:       s.Ore + s.OreR,
@@ -184,7 +183,7 @@ func simulate(s state, t int, b Blueprint, cache map[state]int) int {
 		),
 	)
 
-	cache[s] = max
+	cache[s] = maxV
 
-	return max
+	return maxV
 }

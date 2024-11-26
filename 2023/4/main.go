@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_a"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_set"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"strings"
 )
 
@@ -68,7 +68,7 @@ func countMatching(line string) int {
 		if len(x) == 0 {
 			continue
 		}
-		luckyNumbers.Add(optimistic.Atoi(x))
+		luckyNumbers.Add(o.Atoi(x))
 	}
 
 	ct := 0
@@ -77,7 +77,7 @@ func countMatching(line string) int {
 			continue
 		}
 
-		if !luckyNumbers.Has(optimistic.Atoi(x)) {
+		if !luckyNumbers.Has(o.Atoi(x)) {
 			continue
 		}
 

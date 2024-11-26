@@ -5,7 +5,7 @@ import (
 	"embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"os"
 	"sort"
@@ -61,8 +61,8 @@ func main() {
 
 			mx := dBs[i] - _num.Abs(y-sb[i][0][1])
 			ranges = append(ranges, [2]int{
-				_num.Max(sb[i][0][0]-mx, 0),
-				_num.Min(sb[i][0][0]+mx, iR),
+				max(sb[i][0][0]-mx, 0),
+				min(sb[i][0][0]+mx, iR),
 			})
 		}
 
@@ -87,7 +87,7 @@ func main() {
 				fmt.Println(x*4000000 + y)
 				os.Exit(0)
 			} else {
-				rr[1] = _num.Max(rr[1], ranges[i][1])
+				rr[1] = max(rr[1], ranges[i][1])
 			}
 		}
 	}
@@ -97,5 +97,5 @@ func main() {
 
 func gI(s string) int {
 	spl := strings.Split(s, "=")
-	return optimistic.Atoi(spl[1])
+	return o.Atoi(spl[1])
 }

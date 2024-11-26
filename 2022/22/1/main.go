@@ -5,9 +5,8 @@ import (
 	"bytes"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_slice"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"strings"
 )
@@ -38,7 +37,7 @@ func main() {
 	}
 
 	// pad map
-	w := _num.Max(_slice.Map(m, func(line []byte) int {
+	w := max(0, _slice.Map(m, func(line []byte) int {
 		return len(line)
 	})...)
 	for i := range m {
@@ -53,9 +52,9 @@ func main() {
 		next := strings.IndexAny(moves, "LR")
 		var ct int
 		if next == -1 {
-			ct = optimistic.Atoi(moves)
+			ct = o.Atoi(moves)
 		} else {
-			ct = optimistic.Atoi(moves[:next])
+			ct = o.Atoi(moves[:next])
 		}
 
 	MoveLoop:

@@ -60,7 +60,7 @@ func main() {
 
 		for _, neighbor := range neighbors {
 			tentativeFScore := fScore[current] + m[neighbor[0]][neighbor[1]]
-			if neighborFScore, ok := fScore[neighbor]; !ok || (ok && tentativeFScore < neighborFScore) {
+			if neighborFScore, ok := fScore[neighbor]; !ok || tentativeFScore < neighborFScore {
 				// This path to neighbor is better than any previous one. Record it!
 				cameFrom[neighbor] = current
 				fScore[neighbor] = tentativeFScore

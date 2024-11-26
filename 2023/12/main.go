@@ -5,7 +5,7 @@ import (
 	_ "embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_slice"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"strings"
 )
 
@@ -78,7 +78,7 @@ func parseInput() []Rec {
 		spl := strings.Split(lines[i], " ")
 		recs[i] = Rec{
 			conds:  []byte(spl[0]),
-			groups: _slice.Map(strings.Split(spl[1], ","), optimistic.Atoi),
+			groups: _slice.Map(strings.Split(spl[1], ","), o.Atoi),
 			mem:    make(map[[2]int]int),
 		}
 	}

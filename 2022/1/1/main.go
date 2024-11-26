@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 )
 
@@ -17,23 +17,23 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	var x, max int
+	var x, maxV int
 
 	r := bufio.NewScanner(f)
 	for r.Scan() {
 		line := r.Text()
 		if line == "" {
-			if x > max {
-				max = x
+			if x > maxV {
+				maxV = x
 			}
 			x = 0
 		} else {
-			x += optimistic.Atoi(line)
+			x += o.Atoi(line)
 		}
 	}
-	if x > max {
-		max = x
+	if x > maxV {
+		maxV = x
 	}
 
-	fmt.Println("Max:", max)
+	fmt.Println("Max:", maxV)
 }

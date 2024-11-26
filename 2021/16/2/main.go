@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_slice"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 )
 
 //go:embed input.txt
@@ -16,7 +16,7 @@ func main() {
 	for _, c := range inputHex {
 		inputBin = append(
 			inputBin,
-			[]byte(fmt.Sprintf("%04b", optimistic.ParseInt(string([]byte{c}), 16, 0)))...,
+			[]byte(fmt.Sprintf("%04b", o.ParseInt(string([]byte{c}), 16, 0)))...,
 		)
 	}
 
@@ -39,9 +39,9 @@ func Calc(p PacketI) int {
 	case 1:
 		return _num.Product(values...)
 	case 2:
-		return _num.Min(values...)
+		return min(0, values...)
 	case 3:
-		return _num.Max(values...)
+		return max(0, values...)
 	case 5:
 		if values[0] > values[1] {
 			return 1
@@ -79,9 +79,9 @@ type Packet struct {
 type PacketI interface{}
 
 func ParsePacket(signal *[]byte) (p PacketI) {
-	version := int(optimistic.ParseInt(string((*signal)[:3]), 2, 0))
+	version := int(o.ParseInt(string((*signal)[:3]), 2, 0))
 	*signal = (*signal)[3:]
-	typeId := int(optimistic.ParseInt(string((*signal)[:3]), 2, 0))
+	typeId := int(o.ParseInt(string((*signal)[:3]), 2, 0))
 	*signal = (*signal)[3:]
 
 	if typeId == 4 {
@@ -95,7 +95,7 @@ func ParsePacket(signal *[]byte) (p PacketI) {
 
 		p = &LiteralPacket{
 			Packet: Packet{version: version, typeId: typeId},
-			value:  int(optimistic.ParseInt(string(lit), 2, 0)),
+			value:  int(o.ParseInt(string(lit), 2, 0)),
 		}
 	} else {
 		lengthTypeId := (*signal)[0]
@@ -106,14 +106,14 @@ func ParsePacket(signal *[]byte) (p PacketI) {
 		}
 
 		if lengthTypeId == '0' {
-			subPacketsLength := int(optimistic.ParseInt(string((*signal)[:15]), 2, 0))
+			subPacketsLength := int(o.ParseInt(string((*signal)[:15]), 2, 0))
 			*signal = (*signal)[15:]
 			end := len(*signal) - subPacketsLength
 			for len(*signal) > end {
 				pT.packets = append(pT.packets, ParsePacket(signal))
 			}
 		} else {
-			subPacketsCount := int(optimistic.ParseInt(string((*signal)[:11]), 2, 0))
+			subPacketsCount := int(o.ParseInt(string((*signal)[:11]), 2, 0))
 			*signal = (*signal)[11:]
 
 			for i := 0; i < subPacketsCount; i++ {

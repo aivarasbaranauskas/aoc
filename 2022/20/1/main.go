@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 )
 
@@ -21,7 +21,7 @@ func main() {
 	var idxs []int
 	r := bufio.NewScanner(f)
 	for r.Scan() {
-		nums = append(nums, optimistic.Atoi(r.Text()))
+		nums = append(nums, o.Atoi(r.Text()))
 		idxs = append(idxs, len(idxs))
 	}
 

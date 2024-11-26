@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_slice"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"strings"
 )
 
@@ -16,7 +16,7 @@ func main() {
 		func(line string) []int {
 			return _slice.Map(
 				strings.Split(line, " "),
-				optimistic.Atoi,
+				o.Atoi,
 			)
 		},
 	)

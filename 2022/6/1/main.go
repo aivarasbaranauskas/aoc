@@ -3,7 +3,7 @@ package main
 import (
 	"embed"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 )
 
@@ -15,7 +15,7 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	fullFileB, err := ioutil.ReadAll(f)
+	fullFileB, err := io.ReadAll(f)
 	if err != nil {
 		log.Fatalln(err)
 	}

@@ -4,9 +4,8 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_set"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"math"
 	"strings"
@@ -36,7 +35,7 @@ func main() {
 		spl := strings.Split(r.Text(), "; ")
 		spl1 := strings.Split(spl[0], " ")
 		name := spl1[1]
-		rate := optimistic.Atoi(strings.Split(spl1[4], "=")[1])
+		rate := o.Atoi(strings.Split(spl1[4], "=")[1])
 		if rate > 0 {
 			rates[name] = rate
 		}
@@ -73,7 +72,7 @@ func walk(t int, released int, current string, open _set.Set[string]) int {
 		timeLeft := t - l - 1
 		if timeLeft >= 0 {
 			open.Add(next)
-			maxRel = _num.Max(maxRel, walk(timeLeft, released+rate*timeLeft, next, open))
+			maxRel = max(maxRel, walk(timeLeft, released+rate*timeLeft, next, open))
 			open.Remove(next)
 		}
 	}
@@ -82,11 +81,11 @@ func walk(t int, released int, current string, open _set.Set[string]) int {
 }
 
 func findPath(from, to string, visited []string) int {
-	min := math.MaxInt - 100
+	minV := math.MaxInt - 100
 L:
 	for _, next := range tunnels[from] {
 		if next == to {
-			min = 0
+			minV = 0
 			break
 		}
 
@@ -96,10 +95,10 @@ L:
 			}
 		}
 
-		min = _num.Min(
-			min,
+		minV = min(
+			minV,
 			findPath(next, to, append(visited, from)),
 		)
 	}
-	return min + 1
+	return minV + 1
 }

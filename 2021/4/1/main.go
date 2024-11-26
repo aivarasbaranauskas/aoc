@@ -5,7 +5,7 @@ import (
 	"embed"
 	"errors"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"io"
 	"log"
 	"os"
@@ -78,14 +78,14 @@ func loadData() ([]int, []*Board) {
 		log.Fatalln(err)
 	}
 
-	r := optimistic.NewReader(f)
+	r := o.NewReader(f)
 	numbersLine := r.ReadStringLine()
 	_ = r.ReadStringLine() // Empty line
 
 	numbersS := strings.Split(numbersLine, ",")
 	numbers := make([]int, len(numbersS))
 	for i := range numbersS {
-		numbers[i] = optimistic.Atoi(numbersS[i])
+		numbers[i] = o.Atoi(numbersS[i])
 	}
 
 	var boards []*Board
@@ -97,7 +97,7 @@ func loadData() ([]int, []*Board) {
 			for j := 0; j < 5; j++ {
 				b := j * 3
 				x := line[b : b+2]
-				board.Numbers[i][j] = optimistic.Atoi(string(bytes.TrimSpace(x)))
+				board.Numbers[i][j] = o.Atoi(string(bytes.TrimSpace(x)))
 			}
 		}
 		boards = append(boards, &board)

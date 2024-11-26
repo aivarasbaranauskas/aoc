@@ -1,4 +1,4 @@
-package optimistic
+package o
 
 import (
 	"bufio"

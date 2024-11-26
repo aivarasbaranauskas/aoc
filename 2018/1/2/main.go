@@ -12,7 +12,7 @@ import (
 //go:embed input.txt
 var inputData embed.FS
 
-var alreadyEncautered map[int]bool
+var alreadyEncountered map[int]bool
 
 func parseNum(line []byte) int {
 	numStr := string(line[1:])
@@ -23,7 +23,7 @@ func parseNum(line []byte) int {
 }
 
 func main() {
-	alreadyEncautered = make(map[int]bool)
+	alreadyEncountered = make(map[int]bool)
 
 	f, err := inputData.Open("input.txt")
 	_a.CheckErr(err)
@@ -34,7 +34,7 @@ func main() {
 		for scanner.Scan() {
 			line := scanner.Bytes()
 			if len(line) == 0 {
-				panic(fmt.Errorf("Empty line"))
+				panic(fmt.Errorf("empty line"))
 			}
 
 			if line[0] == '+' {
@@ -42,15 +42,15 @@ func main() {
 			} else if line[0] == '-' {
 				freq -= parseNum(line)
 			} else {
-				panic(fmt.Errorf("Unknown symbol %v", line[0]))
+				panic(fmt.Errorf("unknown symbol %v", line[0]))
 			}
 
-			if _, ok := alreadyEncautered[freq]; ok {
+			if _, ok := alreadyEncountered[freq]; ok {
 				fmt.Println("Duplicate frequency:", freq)
 				return
 			}
 
-			alreadyEncautered[freq] = true
+			alreadyEncountered[freq] = true
 		}
 
 		// Reset file

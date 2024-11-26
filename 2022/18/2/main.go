@@ -5,9 +5,8 @@ import (
 	"embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_a"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_set"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"strings"
 )
@@ -28,17 +27,17 @@ func main() {
 	for r.Scan() {
 		spl := strings.Split(r.Text(), ",")
 		p := [3]int{
-			optimistic.Atoi(spl[0]),
-			optimistic.Atoi(spl[1]),
-			optimistic.Atoi(spl[2]),
+			o.Atoi(spl[0]),
+			o.Atoi(spl[1]),
+			o.Atoi(spl[2]),
 		}
 		points.Add(p)
-		xh[0] = _num.Min(xh[0], p[0])
-		xh[1] = _num.Max(xh[1], p[0])
-		yh[0] = _num.Min(yh[0], p[1])
-		yh[1] = _num.Max(yh[1], p[1])
-		zh[0] = _num.Min(zh[0], p[2])
-		zh[1] = _num.Max(zh[1], p[2])
+		xh[0] = min(xh[0], p[0])
+		xh[1] = max(xh[1], p[0])
+		yh[0] = min(yh[0], p[1])
+		yh[1] = max(yh[1], p[1])
+		zh[0] = min(zh[0], p[2])
+		zh[1] = max(zh[1], p[2])
 	}
 
 	xh[0]--

@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"strings"
 )
@@ -26,7 +26,7 @@ func main() {
 		line := r.Text()
 		spl := strings.Split(line, " ")
 		if len(spl) == 2 {
-			nums[spl[0][:len(spl[0])-1]] = optimistic.Atoi(spl[1])
+			nums[spl[0][:len(spl[0])-1]] = o.Atoi(spl[1])
 		} else {
 			acts[spl[0][:len(spl[0])-1]] = Action{
 				a:    spl[1],

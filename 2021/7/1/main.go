@@ -23,14 +23,14 @@ func main() {
 		}
 	}
 
-	maxPos := _num.Max(positions...)
+	maxPos := max(0, positions...)
 	minSum := math.MaxInt
 	for i := 0; i < maxPos; i++ {
 		var sum int
 		for _, position := range positions {
 			sum += _num.Abs(i - position)
 		}
-		minSum = _num.Min(minSum, sum)
+		minSum = min(minSum, sum)
 	}
 
 	fmt.Println(minSum)

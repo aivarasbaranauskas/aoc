@@ -5,7 +5,6 @@ import (
 	"embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_a"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_slice"
 	"log"
 	"strings"
@@ -61,7 +60,7 @@ func main() {
 
 		for _, neighbor := range neighbors {
 			tentativeFScore := fScore[current] + 1
-			if neighborFScore, ok := fScore[neighbor]; !ok || (ok && tentativeFScore < neighborFScore) {
+			if neighborFScore, ok := fScore[neighbor]; !ok || tentativeFScore < neighborFScore {
 				// This path to neighbor is better than any previous one. Record it!
 				cameFrom[neighbor] = current
 				fScore[neighbor] = tentativeFScore
@@ -70,16 +69,16 @@ func main() {
 		}
 	}
 
-	min := 100000
+	minV := 100000
 	for i := range m {
 		for j := range m[i] {
 			if m[i][j] == 'a' {
 				if sc, ok := fScore[[2]int{i, j}]; ok {
-					min = _num.Min(min, sc)
+					minV = min(minV, sc)
 				}
 			}
 		}
 	}
 
-	fmt.Println(fScore[e], min)
+	fmt.Println(fScore[e], minV)
 }

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_matrix"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_slice"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"math"
 	"strings"
 )
@@ -50,8 +50,8 @@ func main() {
 		strings.Split(input, "\n"),
 		func(line string) Hailstone {
 			spl := strings.Split(line, "@")
-			p1 := _slice.Map(strings.Split(spl[0], ","), func(n string) float64 { return float64(optimistic.Atoi(strings.TrimSpace(n))) })
-			p2 := _slice.Map(strings.Split(spl[1], ","), func(n string) float64 { return float64(optimistic.Atoi(strings.TrimSpace(n))) })
+			p1 := _slice.Map(strings.Split(spl[0], ","), func(n string) float64 { return float64(o.Atoi(strings.TrimSpace(n))) })
+			p2 := _slice.Map(strings.Split(spl[1], ","), func(n string) float64 { return float64(o.Atoi(strings.TrimSpace(n))) })
 
 			return Hailstone{
 				pos: Point{

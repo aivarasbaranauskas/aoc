@@ -4,7 +4,7 @@ import (
 	"bytes"
 	_ "embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 )
 
 //go:embed input.txt
@@ -33,7 +33,7 @@ func part1() {
 		}
 		for ; input[j] >= '0' && input[j] <= '9'; j++ {
 		}
-		s += optimistic.Atoi(string(input[i:j]))
+		s += o.Atoi(string(input[i:j]))
 		i = j
 	}
 	fmt.Println("Part 1:", s)
@@ -96,7 +96,7 @@ func part2() {
 		}
 		for ; input[j] >= '0' && input[j] <= '9'; j++ {
 		}
-		s += optimistic.Atoi(string(input[i:j]))
+		s += o.Atoi(string(input[i:j]))
 		i = j
 	}
 	fmt.Println("Part 2:", s)

@@ -3,8 +3,7 @@ package main
 import (
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
-	"io/ioutil"
+	"io"
 	"log"
 )
 
@@ -64,7 +63,7 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	ffb, err := ioutil.ReadAll(f)
+	ffb, err := io.ReadAll(f)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -139,6 +138,6 @@ func noCollision(x, y int, fig Figure, m []uint8) bool {
 	return true
 }
 
-func clamp(x, min, max int) int {
-	return _num.Min(max, _num.Max(min, x))
+func clamp(x, minV, maxV int) int {
+	return min(maxV, max(minV, x))
 }

@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"strings"
 )
@@ -46,7 +46,7 @@ func main() {
 		c++
 
 		spl := strings.Split(line, " ")
-		x += optimistic.Atoi(spl[1])
+		x += o.Atoi(spl[1])
 	}
 	for i := 0; i <= 5; i++ {
 		for j := 0; j < 40; j++ {

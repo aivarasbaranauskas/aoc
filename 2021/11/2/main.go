@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_a"
 	"github.com/aivarasbaranauskas/aoc/go_helpers/_slice"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"strings"
 )
@@ -27,7 +27,7 @@ func main() {
 		energyLevels = append(energyLevels,
 			_slice.Map(
 				strings.Split(r.Text(), ""),
-				optimistic.Atoi,
+				o.Atoi,
 			),
 		)
 	}

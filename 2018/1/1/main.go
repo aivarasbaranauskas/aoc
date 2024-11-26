@@ -29,7 +29,7 @@ func main() {
 	for scanner.Scan() {
 		line := scanner.Bytes()
 		if len(line) == 0 {
-			panic(fmt.Errorf("Empty line"))
+			panic(fmt.Errorf("empty line"))
 		}
 
 		if line[0] == '+' {
@@ -37,7 +37,7 @@ func main() {
 		} else if line[0] == '-' {
 			freq -= parseNum(line)
 		} else {
-			panic(fmt.Errorf("Unknown symbol %v", line[0]))
+			panic(fmt.Errorf("unknown symbol %v", line[0]))
 		}
 	}
 

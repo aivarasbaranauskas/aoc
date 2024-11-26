@@ -18,9 +18,9 @@ func Values[TKey comparable, TValue any](m map[TKey]TValue) []TValue {
 	return a
 }
 
-func IsSet[TKey comparable, TValue any](m map[TKey]TValue, key TKey) bool {
-	_, ok := m[key]
-	return ok
+func IsSet[TKey comparable, TValue any](m map[TKey]TValue, key TKey) (ok bool) {
+	_, ok = m[key]
+	return
 }
 
 func Duplicate[TKey comparable, TValue any](m map[TKey]TValue) map[TKey]TValue {
@@ -31,12 +31,8 @@ func Duplicate[TKey comparable, TValue any](m map[TKey]TValue) map[TKey]TValue {
 	return newM
 }
 
-func Max[TKey comparable, TValue _num.Numeric](m map[TKey]TValue) (TKey, TValue) {
-	var (
-		kMax TKey
-		vMax TValue
-		f    bool
-	)
+func Max[TKey comparable, TValue _num.Numeric](m map[TKey]TValue) (kMax TKey, vMax TValue) {
+	var f bool
 
 	for key, value := range m {
 		if !f {
@@ -48,5 +44,5 @@ func Max[TKey comparable, TValue _num.Numeric](m map[TKey]TValue) (TKey, TValue)
 			kMax, vMax = key, value
 		}
 	}
-	return kMax, vMax
+	return
 }

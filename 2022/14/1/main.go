@@ -4,8 +4,7 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"math"
 	"strings"
@@ -31,11 +30,11 @@ func main() {
 		spl := strings.Split(r.Text(), " -> ")
 		for _, dot := range spl {
 			spl2 := strings.Split(dot, ",")
-			x := optimistic.Atoi(spl2[0])
-			y := optimistic.Atoi(spl2[1])
-			maxY = _num.Max(maxY, y)
-			maxX = _num.Max(maxX, x)
-			minX = _num.Min(minX, x)
+			x := o.Atoi(spl2[0])
+			y := o.Atoi(spl2[1])
+			maxY = max(maxY, y)
+			maxX = max(maxX, x)
+			minX = min(minX, x)
 			line = append(line, [2]int{x, y})
 		}
 		rockLines = append(rockLines, line)
@@ -52,11 +51,11 @@ func main() {
 
 	for _, rockLine := range rockLines {
 		for i := 0; i < len(rockLine)-1; i++ {
-			fromX := _num.Min(rockLine[i][0], rockLine[i+1][0])
-			toX := _num.Max(rockLine[i][0], rockLine[i+1][0])
+			fromX := min(rockLine[i][0], rockLine[i+1][0])
+			toX := max(rockLine[i][0], rockLine[i+1][0])
 			for x := fromX; x <= toX; x++ {
-				fromY := _num.Min(rockLine[i][1], rockLine[i+1][1])
-				toY := _num.Max(rockLine[i][1], rockLine[i+1][1])
+				fromY := min(rockLine[i][1], rockLine[i+1][1])
+				toY := max(rockLine[i][1], rockLine[i+1][1])
 				for y := fromY; y <= toY; y++ {
 					adjX := x - minX
 					m[y][adjX] = '#'

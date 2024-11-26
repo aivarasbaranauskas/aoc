@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/_num"
 	"log"
 	"math"
 )
@@ -141,10 +140,10 @@ func main() {
 	minX, maxX := math.MaxInt, math.MinInt
 	minY, maxY := math.MaxInt, math.MinInt
 	for elf := range elves {
-		minX = _num.Min(minX, elf.x)
-		maxX = _num.Max(maxX, elf.x)
-		minY = _num.Min(minY, elf.y)
-		maxY = _num.Max(maxY, elf.y)
+		minX = min(minX, elf.x)
+		maxX = max(maxX, elf.x)
+		minY = min(minY, elf.y)
+		maxY = max(maxY, elf.y)
 	}
 
 	fmt.Println(maxX, minX, maxY, minY, len(elves))
@@ -159,10 +158,10 @@ func printE(elves map[Pos]struct{}) {
 	minX, maxX := 0, math.MinInt
 	minY, maxY := 0, math.MinInt
 	for elf := range elves {
-		minX = _num.Min(minX, elf.x)
-		maxX = _num.Max(maxX, elf.x)
-		minY = _num.Min(minY, elf.y)
-		maxY = _num.Max(maxY, elf.y)
+		minX = min(minX, elf.x)
+		maxX = max(maxX, elf.x)
+		minY = min(minY, elf.y)
+		maxY = max(maxY, elf.y)
 	}
 
 	w, h := maxX-minX+1, maxY-minY+1

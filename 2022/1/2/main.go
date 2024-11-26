@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"sort"
 )
@@ -30,7 +30,7 @@ func main() {
 			s = append(s, x)
 			x = 0
 		} else {
-			x += optimistic.Atoi(line)
+			x += o.Atoi(line)
 		}
 	}
 	s = append(s, x)

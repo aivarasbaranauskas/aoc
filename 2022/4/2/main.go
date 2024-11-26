@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/go_helpers/optimistic"
+	"github.com/aivarasbaranauskas/aoc/go_helpers/o"
 	"log"
 	"strings"
 )
@@ -26,10 +26,10 @@ func main() {
 		spl := strings.Split(line, ",")
 		spl1 := strings.Split(spl[0], "-")
 		spl2 := strings.Split(spl[1], "-")
-		a := optimistic.Atoi(spl1[0])
-		b := optimistic.Atoi(spl1[1])
-		c := optimistic.Atoi(spl2[0])
-		d := optimistic.Atoi(spl2[1])
+		a := o.Atoi(spl1[0])
+		b := o.Atoi(spl1[1])
+		c := o.Atoi(spl2[0])
+		d := o.Atoi(spl2[1])
 
 		if (a <= c && c <= b) || (c <= a && a <= d) {
 			ct++
