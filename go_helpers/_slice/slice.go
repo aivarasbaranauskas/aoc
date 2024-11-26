@@ -47,7 +47,7 @@ func Intersect[T comparable](a ...[]T) (intersection []T) {
 			}
 		}
 	default:
-		intersection = Intersect(a[0], Intersect(a[1:]...))
+		intersection = Intersect[T](a[0], Intersect[T](a[1:]...))
 	}
 
 	return
