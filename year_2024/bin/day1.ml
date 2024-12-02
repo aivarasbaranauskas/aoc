@@ -1,13 +1,4 @@
-let file = "input.txt"
-
-let read_lines name =
-  let ic = open_in name in
-  let try_read () =
-    try Some (input_line ic) with End_of_file -> None in
-  let rec loop acc = match try_read () with
-    | Some s -> loop (s :: acc)
-    | None -> close_in ic; List.rev acc in
-  loop []
+let file = "inputs/day1/input.txt"
 
 let split_by_three_spaces line =
   let spl = String.split_on_char ' ' line in
@@ -28,7 +19,7 @@ let map_acc acc i =
   
 
 let () =
-  let lines = read_lines file in
+  let lines = Shared.File.read_lines file in
     let a, b = split_into_columns lines in
       let a_int, b_int = sort @@ List.map int_of_string a, sort @@ List.map int_of_string b in
         let joined = List.combine a_int b_int in

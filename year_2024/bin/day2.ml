@@ -1,13 +1,4 @@
-let file = "input.txt"
-
-let read_lines name =
-  let ic = open_in name in
-  let try_read () =
-    try Some (input_line ic) with End_of_file -> None in
-  let rec loop acc = match try_read () with
-    | Some s -> loop (s :: acc)
-    | None -> close_in ic; List.rev acc in
-  loop []
+let file = "inputs/day2/input.txt"
 
 let is_safe levels = 
   let rec is_rising levels =
@@ -26,7 +17,7 @@ let is_safe_2 levels =
   is_rising levels false true || is_falling levels false true
 
 let () =
-  let lines = read_lines file in
+  let lines = Shared.File.read_lines file in
     let num_lines = List.map (fun line -> List.map int_of_string @@ String.split_on_char ' ' line) lines in
       let safe_unsafe = List.map is_safe num_lines in
         let result_pt1 = List.fold_left (fun acc a -> if a then acc+1 else acc) 0 safe_unsafe in
