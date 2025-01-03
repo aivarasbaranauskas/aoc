@@ -3,9 +3,8 @@ package main
 import (
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_num"
-	"io/ioutil"
-	"log"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
+	"io"
 	"os"
 )
 
@@ -61,14 +60,10 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
-	ffb, err := ioutil.ReadAll(f)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	ffb, err := io.ReadAll(f)
+	_a.CheckErr(err)
 	ffbL := len(ffb)
 
 	var m []uint8
@@ -180,6 +175,6 @@ func noCollision(x, y int, fig Figure, m []uint8) bool {
 	return true
 }
 
-func clamp(x, min, max int) int {
-	return _num.Min(max, _num.Max(min, x))
+func clamp(x, minVal, maxVal int) int {
+	return min(maxVal, max(minVal, x))
 }

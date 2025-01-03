@@ -16,7 +16,7 @@ func readInput(file string) [][]byte {
 	_a.CheckErr(err)
 	scanner := bufio.NewScanner(f)
 
-	res := []([]byte){}
+	var res [][]byte
 	for scanner.Scan() {
 		res = append(res, scanner.Bytes())
 	}

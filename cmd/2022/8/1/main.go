@@ -4,11 +4,11 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/_matrix"
-	"github.com/aivarasbaranauskas/aoc/internal/_num"
 	"github.com/aivarasbaranauskas/aoc/internal/_slice"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
-	"log"
+	"slices"
 	"strings"
 )
 
@@ -17,9 +17,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	r := bufio.NewScanner(f)
 	var trees [][]int
@@ -34,7 +32,7 @@ func main() {
 
 	for x := 1; x < l-1; x++ {
 		for y := 1; y < w-1; y++ {
-			if trees[x][y] > _num.Min(_num.Max(treesT[y][x+1:]...), _num.Max(treesT[y][:x]...), _num.Max(trees[x][y+1:]...), _num.Max(trees[x][:y]...)) {
+			if trees[x][y] > min(slices.Max(treesT[y][x+1:]), slices.Max(treesT[y][:x]), slices.Max(trees[x][y+1:]), slices.Max(trees[x][:y])) {
 				vCt++
 			}
 		}

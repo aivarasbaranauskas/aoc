@@ -4,8 +4,8 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
-	"log"
 )
 
 //go:embed input.txt
@@ -13,27 +13,21 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
-	var x, max int
+	var x, maxVal int
 
 	r := bufio.NewScanner(f)
 	for r.Scan() {
 		line := r.Text()
 		if line == "" {
-			if x > max {
-				max = x
-			}
+			maxVal = max(maxVal, x)
 			x = 0
 		} else {
 			x += optimistic.Atoi(line)
 		}
 	}
-	if x > max {
-		max = x
-	}
+	maxVal = max(maxVal, x)
 
-	fmt.Println("Max:", max)
+	fmt.Println("Max:", maxVal)
 }

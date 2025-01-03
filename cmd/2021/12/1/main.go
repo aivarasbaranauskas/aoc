@@ -4,9 +4,10 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/_slice"
 	"github.com/aivarasbaranauskas/aoc/internal/_string"
-	"log"
+	"slices"
 	"strings"
 )
 
@@ -15,9 +16,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	nodes := make(map[string][]string)
 	r := bufio.NewScanner(f)
@@ -38,7 +37,7 @@ func main() {
 		}
 	}
 
-	routes := []string{}
+	var routes []string
 	findRoutes(nodes, &routes, []string{"start"}, "start")
 
 	fmt.Println(len(routes))
@@ -54,7 +53,7 @@ func findRoutes(nodes map[string][]string, routes *[]string, path []string, curr
 		if next == "start" {
 			continue
 		}
-		if _string.IsLower(next) && _slice.Has(path, next) {
+		if _string.IsLower(next) && slices.Contains(path, next) {
 			continue
 		}
 		findRoutes(nodes, routes, append(_slice.Duplicate(path), next), next)

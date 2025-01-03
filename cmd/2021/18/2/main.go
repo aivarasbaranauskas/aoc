@@ -4,8 +4,7 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_num"
-	"log"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"math"
 	"strings"
 )
@@ -15,9 +14,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	var nums []*Node
 
@@ -52,7 +49,7 @@ func main() {
 		nums = append(nums, num)
 	}
 
-	var max int
+	var maxVal int
 	for i := 0; i < len(nums); i++ {
 		for j := 0; j < len(nums); j++ {
 			if i == j {
@@ -73,11 +70,11 @@ func main() {
 				}
 			}
 
-			max = _num.Max(max, a.Magnitude())
+			maxVal = max(maxVal, a.Magnitude())
 		}
 	}
 
-	fmt.Println(max)
+	fmt.Println(maxVal)
 }
 
 type Node struct {

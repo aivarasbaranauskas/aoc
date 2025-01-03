@@ -5,9 +5,8 @@ import (
 	"embed"
 	"encoding/json"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_num"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
-	"log"
 	"strings"
 )
 
@@ -16,9 +15,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	var bl []Blueprint
 
@@ -74,11 +71,11 @@ func simulate(s state, t int, b Blueprint, cache map[state]int) int {
 		return v
 	}
 
-	max := 0
+	maxVal := 0
 
 	if s.Ore >= b.oreRobot {
-		max = _num.Max(
-			max,
+		maxVal = max(
+			maxVal,
 			simulate(
 				state{
 					Ore:       s.Ore + s.OreR - b.oreRobot,
@@ -99,8 +96,8 @@ func simulate(s state, t int, b Blueprint, cache map[state]int) int {
 	}
 
 	if s.Ore >= b.clayRobot {
-		max = _num.Max(
-			max,
+		maxVal = max(
+			maxVal,
 			simulate(
 				state{
 					Ore:       s.Ore + s.OreR - b.clayRobot,
@@ -121,8 +118,8 @@ func simulate(s state, t int, b Blueprint, cache map[state]int) int {
 	}
 
 	if s.Ore >= b.obsidianRobotOre && s.Clay >= b.obsidianRobotClay {
-		max = _num.Max(
-			max,
+		maxVal = max(
+			maxVal,
 			simulate(
 				state{
 					Ore:       s.Ore + s.OreR - b.obsidianRobotOre,
@@ -143,8 +140,8 @@ func simulate(s state, t int, b Blueprint, cache map[state]int) int {
 	}
 
 	if s.Ore >= b.geodeRobotOre && s.Obsidian >= b.geodeRobotObsidian {
-		max = _num.Max(
-			max,
+		maxVal = max(
+			maxVal,
 			simulate(
 				state{
 					Ore:       s.Ore + s.OreR - b.geodeRobotOre,
@@ -164,8 +161,8 @@ func simulate(s state, t int, b Blueprint, cache map[state]int) int {
 		)
 	}
 
-	max = _num.Max(
-		max,
+	maxVal = max(
+		maxVal,
 		simulate(
 			state{
 				Ore:       s.Ore + s.OreR,
@@ -184,7 +181,7 @@ func simulate(s state, t int, b Blueprint, cache map[state]int) int {
 		),
 	)
 
-	cache[s] = max
+	cache[s] = maxVal
 
-	return max
+	return maxVal
 }

@@ -3,7 +3,7 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"strconv"
+	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
 	"strings"
 )
 
@@ -47,11 +47,7 @@ func getInput() []uint64 {
 	lines := strings.Split(input, "\n")
 	m := make([]uint64, len(lines))
 	for i, line := range lines {
-		v, err := strconv.ParseInt(line, 2, 64)
-		if err != nil {
-			panic(err)
-		}
-		m[i] = uint64(v)
+		m[i] = uint64(optimistic.ParseInt(line, 2, 64))
 	}
 	return m
 }

@@ -5,10 +5,8 @@ import (
 	"embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/internal/_a"
-	"github.com/aivarasbaranauskas/aoc/internal/_num"
 	"github.com/aivarasbaranauskas/aoc/internal/_set"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
-	"log"
 	"strings"
 )
 
@@ -17,9 +15,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	points := _set.New[[3]int]()
 	var xh, yh, zh [2]int
@@ -33,12 +29,12 @@ func main() {
 			optimistic.Atoi(spl[2]),
 		}
 		points.Add(p)
-		xh[0] = _num.Min(xh[0], p[0])
-		xh[1] = _num.Max(xh[1], p[0])
-		yh[0] = _num.Min(yh[0], p[1])
-		yh[1] = _num.Max(yh[1], p[1])
-		zh[0] = _num.Min(zh[0], p[2])
-		zh[1] = _num.Max(zh[1], p[2])
+		xh[0] = min(xh[0], p[0])
+		xh[1] = max(xh[1], p[0])
+		yh[0] = min(yh[0], p[1])
+		yh[1] = max(yh[1], p[1])
+		zh[0] = min(zh[0], p[2])
+		zh[1] = max(zh[1], p[2])
 	}
 
 	xh[0]--

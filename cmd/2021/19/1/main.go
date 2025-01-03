@@ -10,7 +10,6 @@ import (
 	"github.com/aivarasbaranauskas/aoc/internal/_set"
 	"github.com/aivarasbaranauskas/aoc/internal/_slice"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
-	"log"
 	"strings"
 )
 
@@ -19,9 +18,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	scanners := [][][3]int{{}}
 	n := 0

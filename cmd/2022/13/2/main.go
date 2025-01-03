@@ -4,10 +4,10 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_num"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/_slice"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
-	"log"
+	"slices"
 	"sort"
 	"strings"
 )
@@ -17,9 +17,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	r := bufio.NewScanner(f)
 
@@ -136,9 +134,9 @@ func ParseLine(line string) *Node {
 
 		x1 := strings.IndexByte(line[i:], ',')
 		x2 := strings.IndexByte(line[i:], ']')
-		x := _num.Min(_slice.Filter([]int{x1, x2}, func(x int) bool {
+		x := slices.Min(_slice.Filter([]int{x1, x2}, func(x int) bool {
 			return x >= 0
-		})...)
+		}))
 		s.l = append(s.l, &Node{v: ip(optimistic.Atoi(line[i : i+x]))})
 		i = i + x - 1
 	}

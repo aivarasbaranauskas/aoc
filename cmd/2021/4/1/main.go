@@ -5,6 +5,7 @@ import (
 	"embed"
 	"errors"
 	"fmt"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
 	"io"
 	"log"
@@ -74,9 +75,7 @@ func (b *Board) SumUnmarked() (sum int) {
 
 func loadData() ([]int, []*Board) {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	r := optimistic.NewReader(f)
 	numbersLine := r.ReadStringLine()

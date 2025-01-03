@@ -6,6 +6,7 @@ import (
 	"github.com/aivarasbaranauskas/aoc/internal/_num"
 	"github.com/aivarasbaranauskas/aoc/internal/_slice"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
+	"slices"
 )
 
 //go:embed input.txt
@@ -39,9 +40,9 @@ func Calc(p PacketI) int {
 	case 1:
 		return _num.Product(values...)
 	case 2:
-		return _num.Min(values...)
+		return slices.Min(values)
 	case 3:
-		return _num.Max(values...)
+		return slices.Max(values)
 	case 5:
 		if values[0] > values[1] {
 			return 1

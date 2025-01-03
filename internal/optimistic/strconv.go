@@ -1,29 +1,14 @@
 package optimistic
 
 import (
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"strconv"
 )
 
 func Atoi(s string) int {
-	i, err := strconv.Atoi(s)
-	if err != nil {
-		panic(err)
-	}
-	return i
+	return _a.E(strconv.Atoi(s))
 }
 
 func ParseInt(s string, base int, bitSize int) int64 {
-	i, err := strconv.ParseInt(s, base, bitSize)
-	if err != nil {
-		panic(err)
-	}
-	return i
-}
-
-func ParseUint(s string, base int, bitSize int) uint64 {
-	i, err := strconv.ParseUint(s, base, bitSize)
-	if err != nil {
-		panic(err)
-	}
-	return i
+	return _a.E(strconv.ParseInt(s, base, bitSize))
 }

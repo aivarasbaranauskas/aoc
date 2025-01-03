@@ -4,9 +4,8 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"strconv"
-
 	"github.com/aivarasbaranauskas/aoc/internal/_a"
+	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
 )
 
 //go:embed input.txt
@@ -14,10 +13,7 @@ var inputData embed.FS
 
 func parseNum(line []byte) int {
 	numStr := string(line[1:])
-	num, err := strconv.Atoi(numStr)
-	_a.CheckErr(err)
-
-	return num
+	return optimistic.Atoi(numStr)
 }
 
 func main() {
@@ -29,7 +25,7 @@ func main() {
 	for scanner.Scan() {
 		line := scanner.Bytes()
 		if len(line) == 0 {
-			panic(fmt.Errorf("Empty line"))
+			panic(fmt.Errorf("empty line"))
 		}
 
 		if line[0] == '+' {
@@ -37,7 +33,7 @@ func main() {
 		} else if line[0] == '-' {
 			freq -= parseNum(line)
 		} else {
-			panic(fmt.Errorf("Unknown symbol %v", line[0]))
+			panic(fmt.Errorf("unknown symbol %v", line[0]))
 		}
 	}
 

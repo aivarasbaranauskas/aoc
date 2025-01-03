@@ -5,9 +5,7 @@ import (
 	"embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/internal/_a"
-	"github.com/aivarasbaranauskas/aoc/internal/_num"
 	"github.com/aivarasbaranauskas/aoc/internal/_slice"
-	"log"
 	"strings"
 )
 
@@ -16,9 +14,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	var m [][]byte
 	var s, e [2]int
@@ -70,16 +66,16 @@ func main() {
 		}
 	}
 
-	min := 100000
+	minVal := 100000
 	for i := range m {
 		for j := range m[i] {
 			if m[i][j] == 'a' {
 				if sc, ok := fScore[[2]int{i, j}]; ok {
-					min = _num.Min(min, sc)
+					minVal = min(minVal, sc)
 				}
 			}
 		}
 	}
 
-	fmt.Println(fScore[e], min)
+	fmt.Println(fScore[e], minVal)
 }

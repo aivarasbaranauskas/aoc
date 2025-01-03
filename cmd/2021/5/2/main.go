@@ -5,7 +5,7 @@ import (
 	"embed"
 	"errors"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_num"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
 	"io"
 	"log"
@@ -17,9 +17,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	var (
 		maxX, maxY int
@@ -37,8 +35,8 @@ func main() {
 		x2 := optimistic.Atoi(splEnd[0])
 		y2 := optimistic.Atoi(splEnd[1])
 
-		maxX = _num.Max(maxX, x1, x2)
-		maxY = _num.Max(maxY, y1, y2)
+		maxX = max(maxX, x1, x2)
+		maxY = max(maxY, y1, y2)
 		lines = append(lines, [2][2]int{{x1, y1}, {x2, y2}})
 	}
 	if err = s.Err(); err != nil && !errors.Is(err, io.EOF) {
@@ -72,8 +70,8 @@ func main() {
 				y += yMod
 			}
 		} else {
-			xFrom, xTo := _num.Min(x1, x2), _num.Max(x1, x2)
-			yFrom, yTo := _num.Min(y1, y2), _num.Max(y1, y2)
+			xFrom, xTo := min(x1, x2), max(x1, x2)
+			yFrom, yTo := min(y1, y2), max(y1, y2)
 			for x := xFrom; x <= xTo; x++ {
 				for y := yFrom; y <= yTo; y++ {
 					matrix[x][y]++

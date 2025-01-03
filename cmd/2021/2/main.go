@@ -3,7 +3,7 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"strconv"
+	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
 	"strings"
 )
 
@@ -58,13 +58,9 @@ func parseData(data string) []command {
 	m := make([]command, len(lines))
 	for i, line := range lines {
 		spl := strings.Split(line, " ")
-		v, err := strconv.Atoi(spl[1])
-		if err != nil {
-			panic(err)
-		}
 		m[i] = command{
 			command: spl[0],
-			value:   v,
+			value:   optimistic.Atoi(spl[1]),
 		}
 	}
 

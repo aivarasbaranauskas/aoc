@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/internal/_num"
-	"strconv"
+	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
 	"strings"
 )
 
@@ -14,12 +14,8 @@ var input string
 func main() {
 	spl := strings.Split(input, ",")
 	ages := make([]int, len(spl))
-	var err error
 	for i, v := range spl {
-		ages[i], err = strconv.Atoi(v)
-		if err != nil {
-			panic(err)
-		}
+		ages[i] = optimistic.Atoi(v)
 	}
 
 	var fishes [9]int

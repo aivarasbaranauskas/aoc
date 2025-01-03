@@ -4,9 +4,8 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_num"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
-	"log"
 	"strings"
 )
 
@@ -15,9 +14,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	var cubes []*Cube
 
@@ -80,12 +77,12 @@ func (c *Cube) Size() int {
 
 func intersection(s, t *Cube) *Cube {
 	c := &Cube{
-		x1:   _num.Max(s.x1, t.x1),
-		x2:   _num.Min(s.x2, t.x2),
-		y1:   _num.Max(s.y1, t.y1),
-		y2:   _num.Min(s.y2, t.y2),
-		z1:   _num.Max(s.z1, t.z1),
-		z2:   _num.Min(s.z2, t.z2),
+		x1:   max(s.x1, t.x1),
+		x2:   min(s.x2, t.x2),
+		y1:   max(s.y1, t.y1),
+		y2:   min(s.y2, t.y2),
+		z1:   max(s.z1, t.z1),
+		z2:   min(s.z2, t.z2),
 		mode: !t.mode,
 	}
 

@@ -3,7 +3,6 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_num"
 	"github.com/aivarasbaranauskas/aoc/internal/_slice"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
 	"strings"
@@ -49,5 +48,5 @@ func main() {
 	}
 
 	fmt.Println(p1s, p2s, ct)
-	fmt.Println(_num.Min(p1s, p2s) * ct)
+	fmt.Println(min(p1s, p2s) * ct)
 }

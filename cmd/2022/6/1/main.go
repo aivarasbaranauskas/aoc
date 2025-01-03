@@ -3,8 +3,8 @@ package main
 import (
 	"embed"
 	"fmt"
-	"io/ioutil"
-	"log"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
+	"io"
 )
 
 //go:embed input.txt
@@ -12,13 +12,9 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
-	fullFileB, err := ioutil.ReadAll(f)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
+	fullFileB, err := io.ReadAll(f)
+	_a.CheckErr(err)
 
 	var o []byte
 	for i, c := range fullFileB {

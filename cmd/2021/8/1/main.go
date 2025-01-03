@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"log"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"strings"
 )
 
@@ -13,9 +13,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	var count int
 

@@ -4,10 +4,9 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_num"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/_set"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
-	"log"
 	"math"
 	"strings"
 )
@@ -23,9 +22,7 @@ var (
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	rates = make(map[string]int)
 	tunnels = make(map[string][]string)
@@ -73,7 +70,7 @@ func walk(t int, released int, current string, open _set.Set[string]) int {
 		timeLeft := t - l - 1
 		if timeLeft >= 0 {
 			open.Add(next)
-			maxRel = _num.Max(maxRel, walk(timeLeft, released+rate*timeLeft, next, open))
+			maxRel = max(maxRel, walk(timeLeft, released+rate*timeLeft, next, open))
 			open.Remove(next)
 		}
 	}
@@ -82,11 +79,11 @@ func walk(t int, released int, current string, open _set.Set[string]) int {
 }
 
 func findPath(from, to string, visited []string) int {
-	min := math.MaxInt - 100
+	minVal := math.MaxInt - 100
 L:
 	for _, next := range tunnels[from] {
 		if next == to {
-			min = 0
+			minVal = 0
 			break
 		}
 
@@ -96,10 +93,10 @@ L:
 			}
 		}
 
-		min = _num.Min(
-			min,
+		minVal = min(
+			minVal,
 			findPath(next, to, append(visited, from)),
 		)
 	}
-	return min + 1
+	return minVal + 1
 }

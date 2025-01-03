@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"embed"
 	"fmt"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/_set"
-	"io/ioutil"
-	"log"
+	"io"
 	"math"
 	"strings"
 )
@@ -19,14 +19,10 @@ var windsSteps []map[P][]byte
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
-	ffb, err := ioutil.ReadAll(f)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	ffb, err := io.ReadAll(f)
+	_a.CheckErr(err)
 	lines := strings.Split(string(ffb), "\n")
 	winds := map[P][]byte{}
 

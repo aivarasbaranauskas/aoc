@@ -4,8 +4,9 @@ import (
 	_ "embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/internal/_num"
+	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
 	"math"
-	"strconv"
+	"slices"
 	"strings"
 )
 
@@ -15,15 +16,11 @@ var input string
 func main() {
 	spl := strings.Split(input, ",")
 	positions := make([]int, len(spl))
-	var err error
 	for i, v := range spl {
-		positions[i], err = strconv.Atoi(v)
-		if err != nil {
-			panic(err)
-		}
+		positions[i] = optimistic.Atoi(v)
 	}
 
-	maxPos := _num.Max(positions...)
+	maxPos := slices.Max(positions)
 	minSum := math.MaxInt
 	for i := 0; i < maxPos; i++ {
 		var sum int
@@ -33,7 +30,7 @@ func main() {
 				sum += distance * (1 + distance) / 2
 			}
 		}
-		minSum = _num.Min(minSum, sum)
+		minSum = min(minSum, sum)
 	}
 
 	fmt.Println(minSum)

@@ -3,6 +3,7 @@ package optimistic
 import (
 	"bufio"
 	"bytes"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"io"
 	"strings"
 )
@@ -16,19 +17,11 @@ func NewReader(r io.Reader) *Reader {
 }
 
 func (r *Reader) ReadString(delim byte) string {
-	s, err := r.Reader.ReadString(delim)
-	if err != nil {
-		panic(err)
-	}
-	return s
+	return _a.E(r.Reader.ReadString(delim))
 }
 
 func (r *Reader) ReadBytes(delim byte) []byte {
-	s, err := r.Reader.ReadBytes(delim)
-	if err != nil {
-		panic(err)
-	}
-	return s
+	return _a.E(r.Reader.ReadBytes(delim))
 }
 
 func (r *Reader) ReadStringLine() string {

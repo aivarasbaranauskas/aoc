@@ -26,7 +26,7 @@ func main() {
 	*/
 
 	//find all vY
-	maxMaxY := _num.Abs(_num.Min(targetYFrom, targetYTo))
+	maxMaxY := _num.Abs(min(targetYFrom, targetYTo))
 	var vYs []int
 	var vYTs [][]int
 	for vY := 0; vY <= maxMaxY; vY++ {
@@ -78,7 +78,7 @@ func simulateX(vX, t, targetXFrom, targetXTo int) bool {
 	x := 0
 	for i := 0; i <= t; i++ {
 		x = x + vX
-		vX = _num.Max(vX-1, 0)
+		vX = max(vX-1, 0)
 	}
 	return targetXFrom <= x && x <= targetXTo
 }

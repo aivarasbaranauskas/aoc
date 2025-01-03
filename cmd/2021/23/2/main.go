@@ -85,8 +85,8 @@ func aStar(m [27]byte) int {
 
 func genMoves(m [27]byte) (moves [][3]int) { // [from, to, len]
 	tryGenMove := func(hallway, room int, toRoom bool) {
-		from := _num.Min(hallway, 2+2*room)
-		to := _num.Max(hallway, 2+2*room)
+		from := min(hallway, 2+2*room)
+		to := max(hallway, 2+2*room)
 		for i := from; i < to; i++ {
 			if i != hallway && m[i] != '.' {
 				// path obstructed

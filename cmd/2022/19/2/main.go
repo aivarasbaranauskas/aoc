@@ -4,9 +4,8 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_num"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
-	"log"
 	"strings"
 )
 
@@ -15,9 +14,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	var bl []Blueprint
 
@@ -33,7 +30,7 @@ func main() {
 				obsidianRobotClay:  optimistic.Atoi(spl[21]),
 				geodeRobotOre:      optimistic.Atoi(spl[27]),
 				geodeRobotObsidian: optimistic.Atoi(spl[30]),
-				maxOreC: _num.Max(
+				maxOreC: max(
 					optimistic.Atoi(spl[6]),
 					optimistic.Atoi(spl[12]),
 					optimistic.Atoi(spl[18]),
@@ -71,21 +68,21 @@ func simulate(s state, t int, b Blueprint, cache map[state]int) int {
 		return s.Geode
 	}
 
-	s.OreR = _num.Min(s.OreR, b.maxOreC)
-	s.ClayR = _num.Min(s.ClayR, b.obsidianRobotClay)
-	s.ObsidianR = _num.Min(s.ObsidianR, b.geodeRobotObsidian)
-	s.Ore = _num.Min(s.Ore, (t-s.T)*b.maxOreC-s.OreR*(t-s.T-1))
-	s.Clay = _num.Min(s.Clay, (t-s.T)*b.obsidianRobotClay-s.ClayR*(t-s.T-1))
-	s.Obsidian = _num.Min(s.Obsidian, (t-s.T)*b.geodeRobotObsidian-s.ObsidianR*(t-s.T-1))
+	s.OreR = min(s.OreR, b.maxOreC)
+	s.ClayR = min(s.ClayR, b.obsidianRobotClay)
+	s.ObsidianR = min(s.ObsidianR, b.geodeRobotObsidian)
+	s.Ore = min(s.Ore, (t-s.T)*b.maxOreC-s.OreR*(t-s.T-1))
+	s.Clay = min(s.Clay, (t-s.T)*b.obsidianRobotClay-s.ClayR*(t-s.T-1))
+	s.Obsidian = min(s.Obsidian, (t-s.T)*b.geodeRobotObsidian-s.ObsidianR*(t-s.T-1))
 	if v, ok := cache[s]; ok {
 		return v
 	}
 
-	max := 0
+	maxVal := 0
 
 	if s.Ore >= b.oreRobot && b.maxOreC > s.OreR {
-		max = _num.Max(
-			max,
+		maxVal = max(
+			maxVal,
 			simulate(
 				state{
 					Ore:       s.Ore + s.OreR - b.oreRobot,
@@ -106,8 +103,8 @@ func simulate(s state, t int, b Blueprint, cache map[state]int) int {
 	}
 
 	if s.Ore >= b.clayRobot && b.obsidianRobotClay > s.ClayR {
-		max = _num.Max(
-			max,
+		maxVal = max(
+			maxVal,
 			simulate(
 				state{
 					Ore:       s.Ore + s.OreR - b.clayRobot,
@@ -128,8 +125,8 @@ func simulate(s state, t int, b Blueprint, cache map[state]int) int {
 	}
 
 	if s.Ore >= b.obsidianRobotOre && s.Clay >= b.obsidianRobotClay && b.geodeRobotObsidian > s.ObsidianR {
-		max = _num.Max(
-			max,
+		maxVal = max(
+			maxVal,
 			simulate(
 				state{
 					Ore:       s.Ore + s.OreR - b.obsidianRobotOre,
@@ -150,8 +147,8 @@ func simulate(s state, t int, b Blueprint, cache map[state]int) int {
 	}
 
 	if s.Ore >= b.geodeRobotOre && s.Obsidian >= b.geodeRobotObsidian {
-		max = _num.Max(
-			max,
+		maxVal = max(
+			maxVal,
 			simulate(
 				state{
 					Ore:       s.Ore + s.OreR - b.geodeRobotOre,
@@ -171,8 +168,8 @@ func simulate(s state, t int, b Blueprint, cache map[state]int) int {
 		)
 	}
 
-	max = _num.Max(
-		max,
+	maxVal = max(
+		maxVal,
 		simulate(
 			state{
 				Ore:       s.Ore + s.OreR,
@@ -191,7 +188,7 @@ func simulate(s state, t int, b Blueprint, cache map[state]int) int {
 		),
 	)
 
-	cache[s] = max
+	cache[s] = maxVal
 
-	return max
+	return maxVal
 }

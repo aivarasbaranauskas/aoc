@@ -4,9 +4,8 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_num"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
-	"log"
 	"math"
 	"strings"
 )
@@ -16,9 +15,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	r := bufio.NewScanner(f)
 	var (
@@ -33,9 +30,9 @@ func main() {
 			spl2 := strings.Split(dot, ",")
 			x := optimistic.Atoi(spl2[0])
 			y := optimistic.Atoi(spl2[1])
-			maxY = _num.Max(maxY, y)
-			maxX = _num.Max(maxX, x)
-			minX = _num.Min(minX, x)
+			maxY = max(maxY, y)
+			maxX = max(maxX, x)
+			minX = min(minX, x)
 			line = append(line, [2]int{x, y})
 		}
 		rockLines = append(rockLines, line)
@@ -52,11 +49,11 @@ func main() {
 
 	for _, rockLine := range rockLines {
 		for i := 0; i < len(rockLine)-1; i++ {
-			fromX := _num.Min(rockLine[i][0], rockLine[i+1][0])
-			toX := _num.Max(rockLine[i][0], rockLine[i+1][0])
+			fromX := min(rockLine[i][0], rockLine[i+1][0])
+			toX := max(rockLine[i][0], rockLine[i+1][0])
 			for x := fromX; x <= toX; x++ {
-				fromY := _num.Min(rockLine[i][1], rockLine[i+1][1])
-				toY := _num.Max(rockLine[i][1], rockLine[i+1][1])
+				fromY := min(rockLine[i][1], rockLine[i+1][1])
+				toY := max(rockLine[i][1], rockLine[i+1][1])
 				for y := fromY; y <= toY; y++ {
 					adjX := x - minX
 					m[y][adjX] = '#'

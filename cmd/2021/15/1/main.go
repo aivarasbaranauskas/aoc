@@ -4,9 +4,9 @@ import (
 	"embed"
 	"fmt"
 	"github.com/aivarasbaranauskas/aoc/internal/_a"
+	"github.com/aivarasbaranauskas/aoc/internal/_matrix"
 	"github.com/aivarasbaranauskas/aoc/internal/_set"
 	"github.com/aivarasbaranauskas/aoc/internal/_slice"
-	"log"
 	"math"
 	"sort"
 )
@@ -16,11 +16,9 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
-	m := _a.ReadIntMatrix(f)
+	m := _matrix.ReadIntMatrix(f)
 	l := len(m)
 	end := [2]int{l - 1, l - 1}
 

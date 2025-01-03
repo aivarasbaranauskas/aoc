@@ -3,8 +3,9 @@ package main
 import (
 	"embed"
 	"fmt"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
-	"io/ioutil"
+	"io"
 	"log"
 	"sort"
 	"strings"
@@ -15,14 +16,10 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
-	fullFileB, err := ioutil.ReadAll(f)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	fullFileB, err := io.ReadAll(f)
+	_a.CheckErr(err)
 
 	fullFile := string(fullFileB)
 	fileSpl := strings.Split(fullFile, "$")

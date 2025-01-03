@@ -8,7 +8,6 @@ import (
 	"github.com/aivarasbaranauskas/aoc/internal/_set"
 	"github.com/aivarasbaranauskas/aoc/internal/_slice"
 	"github.com/fatih/color"
-	"log"
 	"strings"
 )
 
@@ -17,9 +16,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	var m [][]byte
 	var s, e [2]int

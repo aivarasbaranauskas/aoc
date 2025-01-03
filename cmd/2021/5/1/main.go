@@ -5,7 +5,7 @@ import (
 	"embed"
 	"errors"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_num"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
 	"io"
 	"log"
@@ -17,9 +17,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	var (
 		maxX, maxY int
@@ -42,8 +40,8 @@ func main() {
 			continue
 		}
 
-		maxX = _num.Max(maxX, x1, x2)
-		maxY = _num.Max(maxY, y1, y2)
+		maxX = max(maxX, x1, x2)
+		maxY = max(maxY, y1, y2)
 		lines = append(lines, [2][2]int{{x1, y1}, {x2, y2}})
 	}
 	if err = s.Err(); err != nil && !errors.Is(err, io.EOF) {
@@ -58,8 +56,8 @@ func main() {
 	}
 
 	for _, line := range lines {
-		xFrom, xTo := _num.Min(line[0][0], line[1][0]), _num.Max(line[0][0], line[1][0])
-		yFrom, yTo := _num.Min(line[0][1], line[1][1]), _num.Max(line[0][1], line[1][1])
+		xFrom, xTo := min(line[0][0], line[1][0]), max(line[0][0], line[1][0])
+		yFrom, yTo := min(line[0][1], line[1][1]), max(line[0][1], line[1][1])
 		for x := xFrom; x <= xTo; x++ {
 			for y := yFrom; y <= yTo; y++ {
 				matrix[x][y]++

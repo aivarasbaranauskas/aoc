@@ -8,8 +8,6 @@ func CheckErr(err error) {
 }
 
 func E[T any](x T, err error) T {
-	if err != nil {
-		panic(err)
-	}
+	CheckErr(err)
 	return x
 }

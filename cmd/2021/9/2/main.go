@@ -3,11 +3,11 @@ package main
 import (
 	"embed"
 	"fmt"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/_num"
 	"github.com/aivarasbaranauskas/aoc/internal/_slice"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
-	"io/ioutil"
-	"log"
+	"io"
 	"sort"
 	"strings"
 )
@@ -17,13 +17,9 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
-	fullFile, err := ioutil.ReadAll(f)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
+	fullFile, err := io.ReadAll(f)
+	_a.CheckErr(err)
 
 	heightmap := _slice.Map(
 		strings.Split(string(fullFile), "\n"),

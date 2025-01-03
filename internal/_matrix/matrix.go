@@ -1,8 +1,13 @@
 package _matrix
 
 import (
+	"bufio"
 	"github.com/aivarasbaranauskas/aoc/internal/_num"
+	"github.com/aivarasbaranauskas/aoc/internal/_slice"
+	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
+	"io"
 	"math"
+	"strings"
 )
 
 func Transpose[T any](m [][]T) [][]T {
@@ -97,4 +102,13 @@ func Inverse[T _num.SignedNumeric](m [][]T) ([][]T, bool) {
 	}
 
 	return cofactors, true
+}
+
+func ReadIntMatrix(r io.Reader) [][]int {
+	s := bufio.NewScanner(r)
+	var m [][]int
+	for s.Scan() {
+		m = append(m, _slice.Map(strings.Split(s.Text(), ""), optimistic.Atoi))
+	}
+	return m
 }

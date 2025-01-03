@@ -5,10 +5,10 @@ import (
 	"bytes"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_num"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/_slice"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
-	"log"
+	"slices"
 	"strings"
 )
 
@@ -17,9 +17,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	var (
 		m     [][]byte
@@ -38,9 +36,9 @@ func main() {
 	}
 
 	// pad map
-	w := _num.Max(_slice.Map(m, func(line []byte) int {
+	w := slices.Max(_slice.Map(m, func(line []byte) int {
 		return len(line)
-	})...)
+	}))
 	for i := range m {
 		if len(m[i]) < w {
 			m[i] = append(m[i], bytes.Repeat([]byte(" "), w-len(m[i]))...)

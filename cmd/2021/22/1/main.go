@@ -4,9 +4,8 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_num"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
-	"log"
 	"strings"
 )
 
@@ -15,9 +14,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	m := make([][][]bool, 101)
 	for i := range m {
@@ -35,16 +32,16 @@ func main() {
 		spl = strings.Split(spl[1], ",")
 
 		splx := strings.Split(spl[0][2:], "..")
-		xFrom := _num.Max(-50, optimistic.Atoi(splx[0]))
-		xTo := _num.Min(50, optimistic.Atoi(splx[1]))
+		xFrom := max(-50, optimistic.Atoi(splx[0]))
+		xTo := min(50, optimistic.Atoi(splx[1]))
 
 		sply := strings.Split(spl[1][2:], "..")
-		yFrom := _num.Max(-50, optimistic.Atoi(sply[0]))
-		yTo := _num.Min(50, optimistic.Atoi(sply[1]))
+		yFrom := max(-50, optimistic.Atoi(sply[0]))
+		yTo := min(50, optimistic.Atoi(sply[1]))
 
 		splz := strings.Split(spl[2][2:], "..")
-		zFrom := _num.Max(-50, optimistic.Atoi(splz[0]))
-		zTo := _num.Min(50, optimistic.Atoi(splz[1]))
+		zFrom := max(-50, optimistic.Atoi(splz[0]))
+		zTo := min(50, optimistic.Atoi(splz[1]))
 
 		for x := xFrom; x <= xTo; x++ {
 			for y := yFrom; y <= yTo; y++ {

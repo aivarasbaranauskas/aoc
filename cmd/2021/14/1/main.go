@@ -4,9 +4,9 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/_map"
 	"github.com/aivarasbaranauskas/aoc/internal/_slice"
-	"log"
 	"sort"
 	"strings"
 )
@@ -16,9 +16,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	r := bufio.NewScanner(f)
 

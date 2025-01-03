@@ -11,7 +11,6 @@ import (
 	"github.com/aivarasbaranauskas/aoc/internal/_set"
 	"github.com/aivarasbaranauskas/aoc/internal/_slice"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
-	"log"
 	"strings"
 )
 
@@ -20,9 +19,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	scanners := [][][3]int{{}}
 	n := 0
@@ -112,7 +109,7 @@ Loop:
 	for i := 0; i < len(scannersPos)-1; i++ {
 		for j := i + 1; j < len(scannersPos); j++ {
 			d := _num.Abs(scannersPos[i][0]-scannersPos[j][0]) + _num.Abs(scannersPos[i][1]-scannersPos[j][1]) + _num.Abs(scannersPos[i][2]-scannersPos[j][2])
-			m = _num.Max(m, d)
+			m = max(m, d)
 		}
 	}
 

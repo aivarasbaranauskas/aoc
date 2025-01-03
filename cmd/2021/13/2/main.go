@@ -4,9 +4,8 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_num"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
-	"log"
 	"strings"
 )
 
@@ -15,9 +14,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	r := bufio.NewScanner(f)
 	var points [][2]int
@@ -31,8 +28,8 @@ func main() {
 		x := optimistic.Atoi(spl[0])
 		y := optimistic.Atoi(spl[1])
 		points = append(points, [2]int{x, y})
-		maxX = _num.Max(maxX, x)
-		maxY = _num.Max(maxY, y)
+		maxX = max(maxX, x)
+		maxY = max(maxY, y)
 	}
 
 	matrix := make([][]bool, maxY+1)

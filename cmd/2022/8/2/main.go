@@ -4,10 +4,9 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/internal/_num"
+	"github.com/aivarasbaranauskas/aoc/internal/_a"
 	"github.com/aivarasbaranauskas/aoc/internal/_slice"
 	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
-	"log"
 	"strings"
 )
 
@@ -16,9 +15,7 @@ var inputData embed.FS
 
 func main() {
 	f, err := inputData.Open("input.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	_a.CheckErr(err)
 
 	r := bufio.NewScanner(f)
 	var (
@@ -71,7 +68,7 @@ func main() {
 					break
 				}
 			}
-			maxScenicScore = _num.Max(maxScenicScore, down*up*left*right)
+			maxScenicScore = max(maxScenicScore, down*up*left*right)
 			fmt.Println(x, y, maxScenicScore, down, up, left, right)
 		}
 	}

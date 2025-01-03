@@ -3,7 +3,7 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"strconv"
+	"github.com/aivarasbaranauskas/aoc/internal/optimistic"
 	"strings"
 )
 
@@ -40,12 +40,8 @@ func countIncreasesSlidingWindow(measurements []int) int {
 func getMeasurements() []int {
 	spl := strings.Split(input, "\n")
 	m := make([]int, len(spl))
-	var err error
 	for i, v := range spl {
-		m[i], err = strconv.Atoi(v)
-		if err != nil {
-			panic(err)
-		}
+		m[i] = optimistic.Atoi(v)
 	}
 	return m
 }

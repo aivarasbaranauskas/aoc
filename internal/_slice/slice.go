@@ -1,7 +1,5 @@
 package _slice
 
-import "github.com/aivarasbaranauskas/aoc/internal/_map"
-
 func Map[Tin, Tout any](in []Tin, f func(Tin) Tout) []Tout {
 	out := make([]Tout, len(in))
 	for i, x := range in {
@@ -22,18 +20,6 @@ func Reduce[T any](in []T, f func(T, T) T) (result T) {
 	return
 }
 
-func ReduceInit[Tin, Tout any](in []Tin, initial Tout, f func(Tout, Tin) Tout) (result Tout) {
-	l := len(in)
-	if l == 0 {
-		return
-	}
-	result = initial
-	for i := 0; i < l; i++ {
-		result = f(result, in[i])
-	}
-	return
-}
-
 func Intersect[T comparable](a ...[]T) (intersection []T) {
 	switch len(a) {
 	case 1:
@@ -47,7 +33,7 @@ func Intersect[T comparable](a ...[]T) (intersection []T) {
 			}
 		}
 	default:
-		intersection = Intersect(a[0], Intersect(a[1:]...))
+		intersection = Intersect[T](a[0], Intersect[T](a[1:]...))
 	}
 
 	return
@@ -57,24 +43,6 @@ func Duplicate[T any](a []T) []T {
 	out := make([]T, len(a))
 	copy(out, a)
 	return out
-}
-
-func Has[T comparable](a []T, x T) bool {
-	for i := range a {
-		if a[i] == x {
-			return true
-		}
-	}
-	return false
-}
-
-func First[T any](a []T, check func(T) bool) int {
-	for i := 0; i < len(a); i++ {
-		if check(a[i]) {
-			return i
-		}
-	}
-	return -1
 }
 
 func CountUnique[T comparable](a []T) map[T]int {
@@ -87,14 +55,6 @@ func CountUnique[T comparable](a []T) map[T]int {
 		}
 	}
 	return m
-}
-
-func Unique[T comparable](a []T) []T {
-	m := map[T]struct{}{}
-	for _, x := range a {
-		m[x] = struct{}{}
-	}
-	return _map.Keys(m)
 }
 
 func CountCond[T any](a []T, f func(T) bool) int {
@@ -120,8 +80,4 @@ func Filter[T any](a []T, f func(T) bool) []T {
 func Remove[T any](a []T, i int) ([]T, T) {
 	v := a[i]
 	return append(a[:i], a[i+1:]...), v
-}
-
-func Insert[T any](a []T, i int, v T) []T {
-	return append(append(a[:i], v), a[i+1:]...)
 }
