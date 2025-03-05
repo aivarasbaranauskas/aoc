@@ -9,6 +9,7 @@ import (
 	"github.com/aivarasbaranauskas/aoc/solutions/year_2021"
 	"github.com/aivarasbaranauskas/aoc/solutions/year_2022"
 	"github.com/aivarasbaranauskas/aoc/solutions/year_2023"
+	"github.com/aivarasbaranauskas/aoc/solutions/year_2024"
 )
 
 var solutions = map[int]map[int]framework.Solution{
@@ -18,6 +19,7 @@ var solutions = map[int]map[int]framework.Solution{
 	2021: year_2021.Solutions,
 	2022: year_2022.Solutions,
 	2023: year_2023.Solutions,
+	2024: year_2024.Solutions,
 }
 
 func Run(year, day int) {
