@@ -10,6 +10,8 @@ import (
 	"github.com/aivarasbaranauskas/aoc/solutions/year_2022"
 	"github.com/aivarasbaranauskas/aoc/solutions/year_2023"
 	"github.com/aivarasbaranauskas/aoc/solutions/year_2024"
+	"sync"
+	"testing"
 )
 
 var solutions = map[int]map[int]framework.Solution{
@@ -22,19 +24,58 @@ var solutions = map[int]map[int]framework.Solution{
 	2024: year_2024.Solutions,
 }
 
-func Run(year, day int) {
-	solution, ok := solutions[year][day]
-	if !ok {
-		fmt.Println("Solution not found")
-		return
-	}
-
-	input, err := getInput(year, day)
+func Run(year, day int) error {
+	solution, input, err := getSolutionAndInput(year, day)
 	if err != nil {
-		fmt.Println("Failed to get the input for solution:", err)
-		return
+		return err
 	}
 
 	fmt.Printf("Part 1: %s\n", solution.Part1(input))
 	fmt.Printf("Part 2: %s\n", solution.Part2(input))
+
+	return nil
+}
+
+func Bench(year, day int) error {
+	solution, input, err := getSolutionAndInput(year, day)
+	if err != nil {
+		return err
+	}
+
+	bench(solution.Part1, input, 1)
+	bench(solution.Part2, input, 2)
+
+	return nil
+}
+
+func bench(f func([]byte) string, input []byte, part int) {
+	var (
+		result string
+		once   sync.Once
+	)
+
+	benchResult := testing.Benchmark(func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			r := f(input)
+			once.Do(func() {
+				result = r
+			})
+		}
+	})
+
+	fmt.Printf("Part %v:\n  Result: %s\n  Bench: %v\t%v\n", part, result, benchResult.String(), benchResult.MemString())
+}
+
+func getSolutionAndInput(year, day int) (framework.Solution, []byte, error) {
+	solution, ok := solutions[year][day]
+	if !ok {
+		return nil, nil, fmt.Errorf("solution not found")
+	}
+
+	input, err := getInput(year, day)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to get the input for solution: %w", err)
+	}
+
+	return solution, input, nil
 }
