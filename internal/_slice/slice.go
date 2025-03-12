@@ -67,6 +67,16 @@ func CountCond[T any](a []T, f func(T) bool) int {
 	return ct
 }
 
+func Count[T comparable](a []T, v T) int {
+	ct := 0
+	for _, x := range a {
+		if x == v {
+			ct++
+		}
+	}
+	return ct
+}
+
 func Filter[T any](a []T, f func(T) bool) []T {
 	var a1 []T
 	for _, value := range a {

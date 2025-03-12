@@ -10,6 +10,7 @@ import (
 	"github.com/aivarasbaranauskas/aoc/solutions/year_2022"
 	"github.com/aivarasbaranauskas/aoc/solutions/year_2023"
 	"github.com/aivarasbaranauskas/aoc/solutions/year_2024"
+	"slices"
 	"sync"
 	"testing"
 )
@@ -30,8 +31,8 @@ func Run(year, day int) error {
 		return err
 	}
 
-	fmt.Printf("Part 1: %s\n", solution.Part1(input))
-	fmt.Printf("Part 2: %s\n", solution.Part2(input))
+	fmt.Printf("Part 1: %s\n", solution.Part1(slices.Clone(input)))
+	fmt.Printf("Part 2: %s\n", solution.Part2(slices.Clone(input)))
 
 	return nil
 }
@@ -55,8 +56,13 @@ func bench(f func([]byte) string, input []byte, part int) {
 	)
 
 	benchResult := testing.Benchmark(func(b *testing.B) {
+		inputs := make([][]byte, b.N)
+		for i := range b.N {
+			inputs[i] = slices.Clone(input)
+		}
+		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			r := f(input)
+			r := f(inputs[i])
 			once.Do(func() {
 				result = r
 			})
