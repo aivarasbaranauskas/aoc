@@ -2,6 +2,10 @@ package solutions
 
 import (
 	"fmt"
+	"slices"
+	"sync"
+	"testing"
+
 	"github.com/aivarasbaranauskas/aoc/solutions/framework"
 	"github.com/aivarasbaranauskas/aoc/solutions/year_2015"
 	"github.com/aivarasbaranauskas/aoc/solutions/year_2018"
@@ -10,9 +14,7 @@ import (
 	"github.com/aivarasbaranauskas/aoc/solutions/year_2022"
 	"github.com/aivarasbaranauskas/aoc/solutions/year_2023"
 	"github.com/aivarasbaranauskas/aoc/solutions/year_2024"
-	"slices"
-	"sync"
-	"testing"
+	"github.com/aivarasbaranauskas/aoc/solutions/year_2025"
 )
 
 var solutions = map[int]map[int]framework.Solution{
@@ -23,6 +25,7 @@ var solutions = map[int]map[int]framework.Solution{
 	2022: year_2022.Solutions,
 	2023: year_2023.Solutions,
 	2024: year_2024.Solutions,
+	2025: year_2025.Solutions,
 }
 
 func Run(year, day int) error {

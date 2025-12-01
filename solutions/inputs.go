@@ -18,7 +18,7 @@ var cacheDir = "aoc_cache"
 var session = ""
 
 func init() {
-	if envCacheDir, ok := os.LookupEnv("AOC_CACHE_DIR"); ok {
+	if envCacheDir := os.Getenv("AOC_CACHE_DIR"); envCacheDir != "" {
 		cacheDir = envCacheDir
 	}
 	if envSession, ok := os.LookupEnv("AOC_SESSION"); ok {

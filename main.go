@@ -3,10 +3,14 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/aivarasbaranauskas/aoc/solutions"
+
 	"os"
 	"strconv"
+
+	"github.com/aivarasbaranauskas/aoc/solutions"
 )
+
+import _ "github.com/joho/godotenv/autoload"
 
 func main() {
 	var bench bool
@@ -36,7 +40,8 @@ func main() {
 	} else {
 		err = solutions.Run(year, day)
 	}
+
 	if err != nil {
-		fmt.Println(err)
+		fmt.Printf("Error running solution: %v\n", err)
 	}
 }
