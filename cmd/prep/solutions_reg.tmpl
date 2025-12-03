@@ -1,0 +1,14 @@
+package solutions
+
+import (
+	"github.com/aivarasbaranauskas/aoc/solutions/framework"
+{{- range .Years }}
+	"github.com/aivarasbaranauskas/aoc/solutions/year_{{.}}"
+{{- end}}
+)
+
+var solutions = map[int]map[int]framework.Solution{
+{{- range .Years }}
+	{{.}}: year_{{.}}.Solutions,
+{{- end}}
+}

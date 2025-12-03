@@ -19,7 +19,7 @@ func main() {
 	flag.Parse()
 
 	if flag.NArg() != 2 {
-		fmt.Println("Usage: aoc <year> <day>")
+		fmt.Printf("Usage: %s <year> <day>\n", flag.CommandLine.Name())
 		os.Exit(1)
 	}
 
