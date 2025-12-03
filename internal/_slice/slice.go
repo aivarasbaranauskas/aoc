@@ -1,5 +1,7 @@
 package _slice
 
+import "cmp"
+
 func Map[Tin, Tout any](in []Tin, f func(Tin) Tout) []Tout {
 	out := make([]Tout, len(in))
 	for i, x := range in {
@@ -90,4 +92,19 @@ func Filter[T any](a []T, f func(T) bool) []T {
 func Remove[T any](a []T, i int) ([]T, T) {
 	v := a[i]
 	return append(a[:i], a[i+1:]...), v
+}
+
+func MaxI[S ~[]E, E cmp.Ordered](x S) (int, E) {
+	if len(x) < 1 {
+		panic("slices.Max: empty list")
+	}
+	m := x[0]
+	mi := 0
+	for i := 1; i < len(x); i++ {
+		if x[i] > m {
+			mi = i
+			m = x[i]
+		}
+	}
+	return mi, m
 }
