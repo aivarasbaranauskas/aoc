@@ -3,7 +3,6 @@ package year_2025
 import (
 	"bytes"
 	"math"
-	"slices"
 	"sort"
 	"strconv"
 
@@ -16,7 +15,7 @@ func init() {
 
 type Day8 struct{}
 
-func (day Day8) Part1(input []byte) string {
+func (Day8) Part1(input []byte) string {
 	lines := bytes.Split(input, []byte{'\n'})
 	boxes := make([][3]int, len(lines))
 	for i, line := range lines {
@@ -49,51 +48,49 @@ func (day Day8) Part1(input []byte) string {
 		return distances[i].d < distances[j].d
 	})
 
-	distances = distances[:1000]
-	connections := make(map[int][]int, 1000)
-	for _, d := range distances {
-		l, _ := connections[d.i1]
-		connections[d.i1] = append(l, d.i2)
-		l, _ = connections[d.i2]
-		connections[d.i2] = append(l, d.i1)
+	circuits := make([]int, len(boxes))
+	for i := range circuits {
+		circuits[i] = i
 	}
 
-	visited := make([]bool, len(boxes))
-	var sizes []int
-
-	for i := range boxes {
-		if visited[i] {
+	for _, d := range distances[:1000] {
+		if circuits[d.i1] == circuits[d.i2] {
 			continue
 		}
 
-		if _, ok := connections[i]; !ok {
+		curr := circuits[d.i1]
+		prev := circuits[d.i2]
+		for i := range circuits {
+			if circuits[i] == prev {
+				circuits[i] = curr
+			}
+		}
+	}
+
+	circuitSizes := make([]int, len(boxes))
+	for i := range circuits {
+		circuitSizes[circuits[i]]++
+	}
+
+	i1, i2, i3 := -1, -1, -1
+	for i, v := range circuitSizes {
+		if i1 == -1 || v > circuitSizes[i1] {
+			i1, i2, i3 = i, i1, i2
 			continue
 		}
-
-		sizes = append(sizes, day.visit(connections, visited, i))
+		if i2 == -1 || v > circuitSizes[i2] {
+			i2, i3 = i, i2
+			continue
+		}
+		if i3 == -1 || v > circuitSizes[i3] {
+			i3 = i
+		}
 	}
 
-	slices.Sort(sizes)
-	sizes = sizes[len(sizes)-3:]
-	result := sizes[0] * sizes[1] * sizes[2]
-
-	return strconv.Itoa(result)
+	return strconv.Itoa(circuitSizes[i1] * circuitSizes[i2] * circuitSizes[i3])
 }
 
-func (day Day8) visit(connections map[int][]int, visited []bool, i int) int {
-	if visited[i] {
-		return 0
-	}
-
-	visited[i] = true
-	ct := 1
-	for _, next := range connections[i] {
-		ct += day.visit(connections, visited, next)
-	}
-	return ct
-}
-
-func (day Day8) Part2(input []byte) string {
+func (Day8) Part2(input []byte) string {
 	lines := bytes.Split(input, []byte{'\n'})
 	boxes := make([][3]int, len(lines))
 	for i, line := range lines {
