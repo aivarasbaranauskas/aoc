@@ -95,8 +95,9 @@ func (day Day10) configureJoltage(input []byte) int {
 		}
 	}
 
-	combos := map[int][]int{0: {0}} // buttons masks
-	var q _a.Queue[[4]int]          // [current state, last clicked button i, buttons presses count, buttons mask]
+	combos := make([][]int, 1<<len(goal)) // buttons masks
+	combos[0] = []int{0}
+	var q _a.Queue[[4]int] // [current state, last clicked button i, buttons presses count, buttons mask]
 	q.Enqueue([4]int{0, -1, 0, 0})
 
 	for !q.Empty() {
@@ -108,8 +109,8 @@ func (day Day10) configureJoltage(input []byte) int {
 			mask := state[3] | (1 << i)
 			q.Enqueue([4]int{s, i, c, mask})
 
-			if cc, ok := combos[s]; ok {
-				combos[s] = append(cc, mask)
+			if combos[s] != nil {
+				combos[s] = append(combos[s], mask)
 			} else {
 				combos[s] = []int{mask}
 			}
@@ -120,11 +121,16 @@ func (day Day10) configureJoltage(input []byte) int {
 
 	findMin = func(goal []int, ct, mul int) (int, bool) {
 		allZero := true
+		anyNegative := false
 		for _, v := range goal {
 			allZero = allZero && (v == 0)
+			anyNegative = anyNegative || (v < 0)
 		}
 		if allZero {
 			return ct, true
+		}
+		if anyNegative {
+			return 0, false
 		}
 
 		goalMask := 0
@@ -132,8 +138,8 @@ func (day Day10) configureJoltage(input []byte) int {
 			goalMask |= (v % 2) << i
 		}
 
-		matchingCombos, ok := combos[goalMask]
-		if !ok {
+		matchingCombos := combos[goalMask]
+		if len(matchingCombos) == 0 {
 			return 0, false
 		}
 
