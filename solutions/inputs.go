@@ -3,6 +3,7 @@ package solutions
 import (
 	"bytes"
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"io/fs"
@@ -33,14 +34,15 @@ func getInput(year, day int) ([]byte, error) {
 	s, err := os.Stat(path)
 	if err == nil && !s.IsDir() {
 		f, err := os.Open(path)
+		defer func() { _ = f.Close() }()
 		if err == nil {
 			data, err := io.ReadAll(f)
 			if err == nil {
 				return data, nil
-			} else {
-				fmt.Println("Failed to read cached file:", err)
-				fmt.Println("Fetching fresh input...")
 			}
+
+			fmt.Println("Failed to read cached file:", err)
+			fmt.Println("Fetching fresh input...")
 		} else {
 			fmt.Println("Failed to open cached file:", err)
 			fmt.Println("Fetching fresh input...")
@@ -50,6 +52,10 @@ func getInput(year, day int) ([]byte, error) {
 	data, err := fetchInput(year, day)
 	if err != nil {
 		return nil, fmt.Errorf("fetching input; %w", err)
+	}
+
+	if bytes.Equal(data, []byte("Puzzle inputs differ by user.  Please log in to get your puzzle input.")) {
+		return nil, errors.New("failed to authenticate")
 	}
 
 	if err := writeToFile(path, data); err != nil {
@@ -81,6 +87,7 @@ func fetchInput(year int, day int) ([]byte, error) {
 	defer cancel()
 
 	resp, err := http.DefaultClient.Do(req.WithContext(ctx))
+	defer func() { _ = resp.Body.Close() }()
 	if err != nil {
 		return nil, fmt.Errorf("making request; %w", err)
 	}
