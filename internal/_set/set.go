@@ -2,8 +2,8 @@ package _set
 
 type Set[T comparable] map[T]struct{}
 
-func New[T comparable]() *Set[T] {
-	return &Set[T]{}
+func New[T comparable]() Set[T] {
+	return Set[T]{}
 }
 
 func FromSlice[T comparable](s []T) Set[T] {
@@ -37,6 +37,26 @@ func (s Set[T]) ToSlice() []T {
 		sl = append(sl, item)
 	}
 	return sl
+}
+
+func (s Set[T]) Union(other Set[T]) {
+	for item := range other {
+		s.Add(item)
+	}
+}
+
+func (s Set[T]) Difference(other Set[T]) {
+	if len(other) < len(s) {
+		for item := range other {
+			delete(s, item)
+		}
+	} else {
+		for item := range s {
+			if _, ok := other[item]; ok {
+				delete(s, item)
+			}
+		}
+	}
 }
 
 func (s Set[T]) MinBy(f func(T) int) T {

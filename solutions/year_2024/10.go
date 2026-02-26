@@ -33,7 +33,7 @@ func (day Day10) Part1(input []byte) string {
 	return strconv.Itoa(score)
 }
 
-func (day Day10) findUniqueTrailEnds(ends *_set.Set[int], m [][]byte, r, c int) {
+func (day Day10) findUniqueTrailEnds(ends _set.Set[int], m [][]byte, r, c int) {
 	if m[r][c] == '9' {
 		ends.Add(r*len(m) + c)
 		return
