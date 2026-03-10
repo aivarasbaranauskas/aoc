@@ -1,6 +1,9 @@
 package _slice
 
-import "cmp"
+import (
+	"cmp"
+	"iter"
+)
 
 func Map[Tin, Tout any](in []Tin, f func(Tin) Tout) []Tout {
 	out := make([]Tout, len(in))
@@ -8,6 +11,16 @@ func Map[Tin, Tout any](in []Tin, f func(Tin) Tout) []Tout {
 		out[i] = f(x)
 	}
 	return out
+}
+
+func MapI[Tin, Tout any](in iter.Seq[Tin], f func(Tin) Tout) iter.Seq[Tout] {
+	return func(yield func(Tout) bool) {
+		for v := range in {
+			if !yield(f(v)) {
+				return
+			}
+		}
+	}
 }
 
 func Reduce[T any](in []T, f func(T, T) T) (result T) {
