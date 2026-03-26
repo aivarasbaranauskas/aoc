@@ -3,6 +3,7 @@ package solutions
 import (
 	"github.com/aivarasbaranauskas/aoc/solutions/framework"
 	"github.com/aivarasbaranauskas/aoc/solutions/year_2015"
+	"github.com/aivarasbaranauskas/aoc/solutions/year_2016"
 	"github.com/aivarasbaranauskas/aoc/solutions/year_2018"
 	"github.com/aivarasbaranauskas/aoc/solutions/year_2019"
 	"github.com/aivarasbaranauskas/aoc/solutions/year_2021"
@@ -14,6 +15,7 @@ import (
 
 var solutions = map[int]map[int]framework.Solution{
 	2015: year_2015.Solutions,
+	2016: year_2016.Solutions,
 	2018: year_2018.Solutions,
 	2019: year_2019.Solutions,
 	2021: year_2021.Solutions,
